@@ -15,9 +15,10 @@ export class StrategicBot extends Brain {
 	private targetedCells: Set<string>;
 	private searchQueue: { x: number; y: number }[];
 	private hitsToExplore: { x: number; y: number }[];
-	private exploredHits: Set<string>;
+  private exploredHits: Set<string>;
+  private totalHitsFound: number;
 
-	/** Initializes the bot with empty boards, generates a random placement, and builds the search pattern. */
+  /** Initializes the bot with empty boards, generates a random placement, and builds the search pattern. */
 	constructor() {
 		super();
 		this.name = "StrategicBot";
