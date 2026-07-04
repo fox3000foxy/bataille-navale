@@ -21,6 +21,7 @@ export class StrategicBot extends Brain {
   /** Initializes the bot with empty boards, generates a random placement, and builds the search pattern. */
   constructor() {
     super();
+    this.name = "StrategicBot";
     this.myBoard = new Board();
     this.myStrategy = new Strategy();
     this.targetedCells = new Set();

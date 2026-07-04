@@ -5,6 +5,8 @@ import { Strategy } from "./Strategy";
 
 /** Abstract base class for implementing a player's decision making logic. */
 export abstract class Brain {
+  /** The display name of this bot. */
+  name: string = "Brain";
   private adversaryBoardRef: Board = new Board();
 
   /**
@@ -35,6 +37,12 @@ export abstract class Brain {
    * @param y The y coordinate attacked by the opponent.
    */
   abstract turn(x: number, y: number): void;
+
+  /**
+   * Returns the boat placement strategy used by this brain.
+   * @returns The strategy containing all boat placements.
+   */
+  abstract getStrategy(): Strategy;
 
   /**
    * Creates a strategy by placing all boats from the given definitions.

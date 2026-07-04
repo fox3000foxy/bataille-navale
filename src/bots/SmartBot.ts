@@ -20,6 +20,7 @@ export class SmartBot extends Brain {
   /** Initializes the bot with empty boards and generates a spread-out boat placement. */
   constructor() {
     super();
+    this.name = "SmartBot";
     this.myBoard = new Board();
     this.myStrategy = new Strategy();
     this.targetedCells = new Set();

@@ -14,6 +14,7 @@ export class Random extends Brain {
   /** Initializes the bot with empty boards and generates a random boat placement strategy. */
   constructor() {
     super();
+    this.name = "RandomBot";
     this.myBoard = new Board();
     this.myStrategy = new Strategy();
     this.targetedCells = new Set();
