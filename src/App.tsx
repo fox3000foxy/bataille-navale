@@ -69,9 +69,9 @@ function RevealSection({ children, className = "" }: { children: React.ReactNode
 function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) => void }) {
   const { user, loading, logout } = useAuth();
   const links: { label: string; page: Page }[] = [
-    { label: "Developer", page: "developer" },
-    { label: "Terms", page: "terms" },
-    { label: "Privacy", page: "privacy" },
+    { label: "Développeur", page: "developer" },
+    { label: "CGU", page: "terms" },
+    { label: "Confidentialité", page: "privacy" },
   ];
 
   return (
@@ -105,7 +105,7 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
             <button type="button" onClick={() => onNavigate("submit")}
               className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white font-semibold no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
             >
-              Submit a robot
+              Soumettre un robot
             </button>
           </div>
         ) : (
@@ -145,13 +145,13 @@ function Hero({ onNavigate }: { onNavigate: (page: Page) => void }) {
           onClick={() => onNavigate("developer")}
           className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-lg no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all hover:-translate-y-0.5 cursor-pointer border-0 btn-primary"
         >
-          Start coding
+          Commencer à coder
         </button>
         <button type="button"
           onClick={() => onNavigate("submit")}
           className="px-8 py-3 rounded-xl border border-[#fbf0df]/20 text-[#fbf0df] font-bold text-lg no-underline hover:border-[#00d4ff]/50 hover:text-[#00d4ff] transition-all cursor-pointer bg-transparent"
         >
-          Submit my robot
+          Soumettre mon robot
         </button>
       </div>
     </section>
@@ -174,6 +174,45 @@ function Stats() {
             <div className="text-3xl md:text-4xl font-bold text-[#00d4ff] mb-1">{item.value}</div>
             <div className="text-sm text-[#fbf0df]/40 uppercase tracking-wider">{item.label}</div>
           </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  const steps = [
+    {
+      num: "1",
+      title: "Codez votre robot",
+      desc: "Utilisez notre SDK pour construire votre IA en TypeScript. Implémentez les méthodes think() et turn() pour définir votre stratégie.",
+    },
+    {
+      num: "2",
+      title: "Participez aux événements",
+      desc: "Un nouvel événement a lieu chaque weekend. Soumettez votre robot avant le vendredi minuit pour participer.",
+    },
+    {
+      num: "3",
+      title: "Gagnez des prix",
+      desc: "Les meilleurs robots s'affrontent. Les développeurs gagnants et les parieurs se partagent la cagnotte.",
+    },
+  ];
+
+  return (
+    <section className="px-6 py-24 max-w-5xl mx-auto">
+      <h2 className="section-title"><span>Comment ça marche</span></h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {steps.map((step) => (
+          <RevealSection key={step.num}>
+            <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
+              <span className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-[#00d4ff]/20 to-[#7c3aed]/20 border border-[#00d4ff]/20 text-xl font-bold text-[#00d4ff] mb-5">
+                {step.num}
+              </span>
+              <h3 className="text-xl font-bold text-[#fbf0df] mb-3">{step.title}</h3>
+              <p className="text-[#fbf0df]/50 leading-relaxed text-sm">{step.desc}</p>
+            </div>
+          </RevealSection>
         ))}
       </div>
     </section>
@@ -208,70 +247,31 @@ function Features() {
   );
 }
 
-function HowItWorks() {
-  const steps = [
-    {
-      num: "1",
-      title: "Code your robot",
-      desc: "Use our SDK to build your AI in TypeScript. Implement the think() and turn() methods to define your strategy.",
-    },
-    {
-      num: "2",
-      title: "Join weekly events",
-      desc: "A new event runs every weekend. Submit your robot before Friday midnight to participate.",
-    },
-    {
-      num: "3",
-      title: "Win and earn",
-      desc: "The best robots compete. Winning developers and bettors share the prize pool.",
-    },
-  ];
-
-  return (
-    <section className="px-6 py-24 max-w-5xl mx-auto">
-      <h2 className="section-title"><span>How it works</span></h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {steps.map((step) => (
-          <RevealSection key={step.num}>
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
-              <span className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-[#00d4ff]/20 to-[#7c3aed]/20 border border-[#00d4ff]/20 text-xl font-bold text-[#00d4ff] mb-5">
-                {step.num}
-              </span>
-              <h3 className="text-xl font-bold text-[#fbf0df] mb-3">{step.title}</h3>
-              <p className="text-[#fbf0df]/50 leading-relaxed text-sm">{step.desc}</p>
-            </div>
-          </RevealSection>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function RevenueSplit() {
   return (
     <section className="px-6 py-24 max-w-5xl mx-auto">
-      <h2 className="section-title"><span>Revenue split</span></h2>
+      <h2 className="section-title"><span>Répartition des gains</span></h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <RevealSection>
           <div className="p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 text-center card-hover">
             <div className="text-5xl font-bold text-[#00d4ff] mb-2">75%</div>
-            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Bettors</div>
-            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Distributed proportionally based on each bettor share of the final pool.</p>
+            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Parieurs</div>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Réparti proportionnellement à la mise de chaque parieur sur le pot final.</p>
           </div>
         </RevealSection>
         <RevealSection>
           <div className="p-8 rounded-2xl bg-[#16161f] border-2 border-[#00d4ff]/20 text-center relative animate-[pulse-glow_3s_ease-in-out_infinite]">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white text-xs font-bold uppercase tracking-wider">Winner</div>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white text-xs font-bold uppercase tracking-wider">Gagnant</div>
             <div className="text-5xl font-bold text-[#fbf0df] mb-2 mt-2">20%</div>
-            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Bot developer</div>
-            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Reward for the developer of the winning robot.</p>
+            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Développeur du bot</div>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Récompense pour le développeur du robot vainqueur.</p>
           </div>
         </RevealSection>
         <RevealSection>
           <div className="p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 text-center card-hover">
             <div className="text-5xl font-bold text-[#00d4ff] mb-2">5%</div>
             <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Maintenance</div>
-            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Platform operating and maintenance fees.</p>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Frais de fonctionnement et de maintenance de la plateforme.</p>
           </div>
         </RevealSection>
       </div>
@@ -320,17 +320,18 @@ function CTA({ onNavigate }: { onNavigate: (page: Page) => void }) {
       <RevealSection>
         <div className="max-w-3xl mx-auto p-12 md:p-16 rounded-3xl bg-[#16161f] border border-[#fbf0df]/5 relative overflow-hidden">
           <div className="glow-orb -top-40 -right-40 opacity-70" />
-          <h2 className="text-3xl md:text-4xl font-bold text-[#fbf0df] mb-4 relative">Ready for the challenge?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#fbf0df] mb-4 relative">Prêt pour le défi ?</h2>
           <p className="text-[#fbf0df]/50 mb-10 max-w-xl mx-auto leading-relaxed relative">
-            Download the SDK, follow the validation rules, and submit your robot for the next weekly event.
+            Téléchargez le SDK, suivez les règles de validation et soumettez votre robot
+            pour le prochain événement hebdomadaire.
           </p>
           <div className="flex items-center justify-center gap-4 relative">
             <button type="button" onClick={() => onNavigate("developer")}
               className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
-            >SDK documentation</button>
+            >Documentation SDK</button>
             <button type="button" onClick={() => onNavigate("submit")}
               className="px-8 py-3 rounded-xl border border-[#fbf0df]/20 text-[#fbf0df] font-bold no-underline hover:border-[#00d4ff]/50 hover:text-[#00d4ff] transition-all cursor-pointer bg-transparent"
-            >Submit</button>
+            >Soumettre</button>
           </div>
         </div>
       </RevealSection>
@@ -347,24 +348,24 @@ function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
             <img src={logo} alt="" className="h-6" />
             NavalCode
           </div>
-          <p className="text-[#fbf0df]/40 text-sm leading-relaxed">AI robot competition platform. Code, compete, and earn.</p>
+          <p className="text-[#fbf0df]/40 text-sm leading-relaxed">Plateforme de compétition de robots IA. Codez, competez, gagnez.</p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">Platform</h4>
+          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">Plateforme</h4>
           <div className="flex flex-col gap-2 text-sm">
-            <button type="button" onClick={() => onNavigate("developer")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Developer</button>
-            <button type="button" onClick={() => onNavigate("submit")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Submit</button>
+            <button type="button" onClick={() => onNavigate("developer")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Développeur</button>
+            <button type="button" onClick={() => onNavigate("submit")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Soumettre</button>
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">Legal</h4>
+          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">Juridique</h4>
           <div className="flex flex-col gap-2 text-sm">
-            <button type="button" onClick={() => onNavigate("terms")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Terms of service</button>
-            <button type="button" onClick={() => onNavigate("privacy")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Privacy policy</button>
+            <button type="button" onClick={() => onNavigate("terms")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">CGU</button>
+            <button type="button" onClick={() => onNavigate("privacy")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Confidentialité</button>
           </div>
         </div>
       </div>
-      <div className="text-center text-sm text-[#fbf0df]/30 pt-8 border-t border-[#fbf0df]/5">NavalCode -- AI robot competition</div>
+      <div className="text-center text-sm text-[#fbf0df]/30 pt-8 border-t border-[#fbf0df]/5">NavalCode -- Compétition de robots IA</div>
     </footer>
   );
 }
