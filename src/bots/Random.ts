@@ -8,7 +8,6 @@ import { State } from "../types/State";
 /** Random bot that places boats randomly and picks targets at random. */
 export class Random extends Brain {
   private myBoard: Board;
-  private adversaryBoard: Board;
   private myStrategy: Strategy;
   private targetedCells: Set<string>;
 
@@ -16,7 +15,6 @@ export class Random extends Brain {
   constructor() {
     super();
     this.myBoard = new Board();
-    this.adversaryBoard = new Board();
     this.myStrategy = new Strategy();
     this.targetedCells = new Set();
     this.myStrategy = this.generateStrategy();
@@ -135,11 +133,4 @@ export class Random extends Brain {
     }
   }
 
-  /**
-   * Returns the current knowledge of the adversary board.
-   * @returns The adversary board tracked by this bot.
-   */
-  getAdversaryBoard(): Board {
-    return this.adversaryBoard;
-  }
 }
