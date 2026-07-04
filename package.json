@@ -15,7 +15,8 @@
     "test": "bun test ./tests",
     "test:watch": "bun test --watch ./tests",
     "test:coverage": "bun test --coverage ./tests",
-    "tsc": "bunx tsc -b"
+    "tsc": "bunx tsc -b",
+    "postinstall": "mkdir -p node_modules/@navalcode && ln -sf ../../sdk node_modules/@navalcode/sdk"
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.1.2",
