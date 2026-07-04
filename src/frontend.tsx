@@ -9,12 +9,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 
-const elem = document.getElementById("root")!;
-const app = (
+const ELEM = document.getElementById("root")!;
+const APP = (
 	<StrictMode>
 		<App />
 	</StrictMode>
 );
 
 // https://bun.com/docs/bundler/hot-reloading#import-meta-hot-data
-(import.meta.hot.data.root ??= createRoot(elem)).render(app);
+(import.meta.hot.data.root ??= createRoot(ELEM)).render(APP);

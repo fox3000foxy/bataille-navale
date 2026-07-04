@@ -1,8 +1,8 @@
-import { Brain } from "./Brain";
+import type { Brain } from "./Brain";
 import { Game } from "./Game";
-import { Board } from "./Board";
+import type { Board } from "./Board";
 import { State } from "../types/State";
-import { Strategy } from "./Strategy";
+import type { Strategy } from "./Strategy";
 
 /** Result for a single bot in a batch calculation. */
 export interface BotResult {

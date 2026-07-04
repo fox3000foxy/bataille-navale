@@ -1,12 +1,12 @@
 import { Board } from "./Board";
-import { Boats } from "../types/Boats";
+import type { Boats } from "../types/Boats";
 import type { Direction } from "./Strategy";
 import { Strategy } from "./Strategy";
 
 /** Abstract base class for implementing a player's decision making logic. */
 export abstract class Brain {
 	/** The display name of this bot. */
-	name: string = "Brain";
+	name = "Brain";
 	private adversaryBoardRef: Board = new Board();
 
 	/**

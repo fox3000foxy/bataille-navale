@@ -1,19 +1,19 @@
 import { serve } from "bun";
 import index from "./index.html";
 
-const server = serve({
+const SERVER = serve({
 	routes: {
 		// Serve index.html for all unmatched routes.
 		"/*": index,
 
 		"/api/hello": {
-			async GET(req) {
+			async GET(_req) {
 				return Response.json({
 					message: "Hello, world!",
 					method: "GET",
 				});
 			},
-			async PUT(req) {
+			async PUT(_req) {
 				return Response.json({
 					message: "Hello, world!",
 					method: "PUT",
@@ -38,4 +38,4 @@ const server = serve({
 	},
 });
 
-console.log(`🚀 Server running at ${server.url}`);
+console.log(`🚀 Server running at ${SERVER.url}`);

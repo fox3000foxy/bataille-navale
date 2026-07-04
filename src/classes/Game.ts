@@ -1,5 +1,5 @@
 import { Board } from "./Board";
-import { Brain } from "./Brain";
+import type { Brain } from "./Brain";
 import { State } from "../types/State";
 import { Strategy } from "./Strategy";
 

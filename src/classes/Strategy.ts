@@ -1,4 +1,4 @@
-import { Boats } from "../types/Boats";
+import type { Boats } from "../types/Boats";
 import { State } from "../types/State";
 
 /** Direction in which a boat extends from its starting coordinate. */
