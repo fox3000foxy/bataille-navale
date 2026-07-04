@@ -1,0 +1,13 @@
+{
+  "name": "@navalcode/cli",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "bin": {
+    "navalcode": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "bun build ./index.ts --outdir=dist --target=node",
+    "dev": "bun run ./index.ts"
+  },
+  "files": ["dist"]
+}
