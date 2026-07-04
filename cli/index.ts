@@ -8,7 +8,7 @@ const commands: Record<string, (args: string[]) => Promise<void>> = {
   sync: async (args) => {
     const file = args[0];
     if (!file) {
-      console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} Usage: ${BOLD}navalcode sync <fichier.ts>${RESET}\n`);
+      console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} Usage: ${BOLD}navalcode sync <file.ts>${RESET}\n`);
       process.exit(1);
     }
     await sync(file);
@@ -24,15 +24,15 @@ async function main(): Promise<void> {
     console.log(`\n  ${BOLD}Usage${RESET}`);
     console.log(`    ${MUTED}navalcode <command> [options]${RESET}\n`);
     console.log(`  ${BOLD}Commands${RESET}`);
-    console.log(`    ${MUTED}auth           ${GRAY}Authentifier le CLI avec votre compte${RESET}`);
-    console.log(`    ${MUTED}sync <file>    ${GRAY}Synchroniser et surveiller un robot${RESET}`);
-    console.log(`    ${MUTED}simulate      ${GRAY}Lancer des simulations (bientôt)${RESET}\n`);
+    console.log(`    ${MUTED}auth           ${GRAY}Authenticate the CLI with your account${RESET}`);
+    console.log(`    ${MUTED}sync <file>    ${GRAY}Sync and watch a robot file${RESET}`);
+    console.log(`    ${MUTED}simulate      ${GRAY}Run headless simulations (coming soon)${RESET}\n`);
     return;
   }
 
   const fn = commands[cmd];
   if (!fn) {
-    console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} Commande inconnue : "${cmd}"${RESET}\n`);
+    console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} Unknown command: "${cmd}"${RESET}\n`);
     process.exit(1);
   }
 

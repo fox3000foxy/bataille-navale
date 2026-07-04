@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { useI18n } from "../i18n/I18nContext";
 
-type Page = "home" | "developer" | "terms" | "privacy" | "submit" | "login" | "register";
+type Page = "home" | "terms" | "privacy" | "login" | "register";
 
 export function Login({ onNavigate }: { onNavigate: (page: Page) => void }) {
   const { login } = useAuth();

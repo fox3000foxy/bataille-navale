@@ -23,7 +23,7 @@ export async function auth(): Promise<void> {
 
   const codeRes = await fetch(`${API}/api/auth/device/code`);
   if (!codeRes.ok) {
-    console.error(`${BOLD}${gradient(" Erreur ", [239, 68, 68], [239, 68, 68])} Impossible de contacter le serveur${RESET}`);
+    console.error(`${BOLD}${gradient(" Error ", [239, 68, 68], [239, 68, 68])} Could not reach the server${RESET}`);
     process.exit(1);
   }
 
@@ -33,14 +33,14 @@ export async function auth(): Promise<void> {
   ${BOLD}${CYAN}║${RESET}   ${gradient(code, [0, 212, 255], [124, 58, 237])}   ${BOLD}${CYAN}║${RESET}
   ${BOLD}${CYAN}╚═══════════════╝${RESET}`;
 
-  console.log(`${box("Authentification CLI")}\n`);
-  console.log(`  ${MUTED}Code d'authentification :${RESET}\n`);
+  console.log(`${box("CLI Authentication")}\n`);
+  console.log(`  ${MUTED}Authentication code:${RESET}\n`);
   console.log(`${codeBlock}\n`);
-  console.log(`  ${MUTED}Rendez-vous sur${RESET} ${TEXT}${BOLD}${API}/device${RESET} ${MUTED}dans votre navigateur${RESET}`);
-  console.log(`  ${MUTED}et entrez ce code pour autoriser le CLI.${RESET}\n`);
-  console.log(`  ${GRAY}Le code expire dans 10 minutes.${RESET}\n`);
+  console.log(`  ${MUTED}Go to${RESET} ${TEXT}${BOLD}${API}/device${RESET} ${MUTED}in your browser${RESET}`);
+  console.log(`  ${MUTED}and enter this code to authorize the CLI.${RESET}\n`);
+  console.log(`  ${GRAY}The code expires in 10 minutes.${RESET}\n`);
   console.log(`  ${DIM}${"─".repeat(40)}${RESET}`);
-  console.log(`  ${DIM}En attente de confirmation...${RESET}`);
+  console.log(`  ${DIM}Waiting for confirmation...${RESET}`);
 
   const pollInterval = 2000;
   const maxAttempts = 300;
@@ -52,20 +52,20 @@ export async function auth(): Promise<void> {
     const data = await statusRes.json() as StatusResponse;
 
     if (data.status === "confirmed" && data.token) {
-      console.log(`  ${GREEN}✓ CLI authentifié avec succès !${RESET}\n`);
+      console.log(`  ${GREEN}✓ CLI authenticated successfully!${RESET}\n`);
       const home = process.env.HOME || process.env.USERPROFILE || ".";
       const configDir = join(home, ".config", "navalcode");
       if (!existsSync(configDir)) {
         mkdirSync(configDir, { recursive: true });
       }
       writeFileSync(join(configDir, "token"), data.token, "utf-8");
-      console.log(`  ${GREEN}✓ Token sauvegardé${RESET}\n`);
-      console.log(`  ${MUTED}Vous pouvez maintenant utiliser${RESET} ${CYAN}navalcode sync${RESET} ${MUTED}pour synchroniser vos robots.${RESET}\n`);
+      console.log(`  ${GREEN}✓ Token saved${RESET}\n`);
+      console.log(`  ${MUTED}You can now use${RESET} ${CYAN}navalcode sync${RESET} ${MUTED}to sync your robots.${RESET}\n`);
       return;
     }
 
     if (data.status === "expired") {
-      console.log(`\n  ${gradient(" Code expiré ", [239, 68, 68], [200, 50, 50])} Veuillez relancer ${CYAN}navalcode auth${RESET}\n`);
+      console.log(`\n  ${gradient(" Code expired ", [239, 68, 68], [200, 50, 50])} Please run ${CYAN}navalcode auth${RESET} again\n`);
       process.exit(1);
     }
 
@@ -74,7 +74,6 @@ export async function auth(): Promise<void> {
     }
   }
 
-  console.log(`\n  ${gradient(" Délai dépassé ", [239, 68, 68], [200, 50, 50])} Veuillez relancer ${CYAN}navalcode auth${RESET}\n`);
+  console.log(`\n  ${gradient(" Timeout ", [239, 68, 68], [200, 50, 50])} Please run ${CYAN}navalcode auth${RESET} again\n`);
   process.exit(1);
 }
-

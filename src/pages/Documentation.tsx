@@ -1,6 +1,6 @@
 import { useI18n } from "../i18n/I18nContext";
 
-function Pre({ children }: { children: string }) {
+function Pre({ children }: { children: React.ReactNode }) {
   return (
     <pre className="text-sm text-[#fbf0df]/70 font-mono leading-relaxed overflow-x-auto bg-[#0d0d14] p-4 rounded-xl border-l-2 border-[#00d4ff]/30">
       {children}
@@ -8,7 +8,7 @@ function Pre({ children }: { children: string }) {
   );
 }
 
-function Code({ children }: { children: string }) {
+function Code({ children }: { children: React.ReactNode }) {
   return (
     <code className="text-[#00d4ff] bg-[#0d0d14] px-2 py-0.5 rounded font-mono text-sm border border-[#00d4ff]/20">
       {children}
@@ -182,6 +182,77 @@ export function Documentation() {
 
   getAdversaryBoard(): Board;
   placeBoats(...boats: [Boats, Direction, [number, number]][]): Strategy;
+}`}</Pre>
+          </DocCard>
+
+          <DocCard title={t("docs.install.title")}>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+              {t("docs.install.desc")}
+            </p>
+            <div className="space-y-4">
+              <div>
+                <p className="text-[#fbf0df]/70 text-xs font-bold uppercase tracking-wider mb-2">SDK</p>
+                <Pre>{`# Bun (recommended)
+bun add @navalcode/sdk
+
+# npm
+npm install @navalcode/sdk
+
+# pnpm
+pnpm add @navalcode/sdk`}</Pre>
+              </div>
+              <div>
+                <p className="text-[#fbf0df]/70 text-xs font-bold uppercase tracking-wider mb-2">CLI</p>
+                <Pre>{`# Bun (recommended)
+bun add -g @navalcode/cli
+
+# npm
+npm install -g @navalcode/cli`}</Pre>
+              </div>
+            </div>
+          </DocCard>
+
+          <DocCard title={t("docs.cli.title")}>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+              {t("docs.cli.desc")}
+            </p>
+            <div className="space-y-4">
+              <div>
+                <p className="text-[#fbf0df]/70 text-xs font-bold uppercase tracking-wider mb-1">{t("docs.cli.auth.title")}</p>
+                <Pre>{"navalcode auth"}</Pre>
+                <p className="text-[#fbf0df]/50 text-xs mt-1">
+                  {t("docs.cli.auth.descBefore")} <Code>{window.location.origin}/device</Code> {t("docs.cli.auth.descAfter")}
+                </p>
+              </div>
+              <div>
+                <p className="text-[#fbf0df]/70 text-xs font-bold uppercase tracking-wider mb-1">{t("docs.cli.sync.title")}</p>
+                <Pre>{"navalcode sync monRobot.ts"}</Pre>
+                <p className="text-[#fbf0df]/50 text-xs mt-1">
+                  {t("docs.cli.sync.desc")}
+                </p>
+              </div>
+            </div>
+          </DocCard>
+
+          <DocCard title={t("developer.sdk.title")}>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+              {t("developer.sdk.desc")} <Code>Brain</Code>
+            </p>
+            <Pre>{`import { Brain } from "@navalcode/sdk";
+import { Board } from "@navalcode/sdk";
+import { Strategy } from "@navalcode/sdk";
+import { Boats, State } from "@navalcode/sdk";
+
+export class MyBot extends Brain {
+  think(): { x: number; y: number } {
+    return { x: 5, y: 5 };
+  }
+
+  turn(x: number, y: number): void {
+  }
+
+  getStrategy(): Strategy {
+  }
 }`}</Pre>
           </DocCard>
         </section>
@@ -369,6 +440,78 @@ export class MyBot extends Brain {
 }`}</Pre>
             </div>
           </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.methods.title")}</span></h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
+              <h3 className="text-lg font-bold text-[#fbf0df] mb-2">think()</h3>
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+                {t("developer.methods.think.desc")}
+              </p>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                think(): {"{ x: number; y: number }"}
+              </code>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
+              <h3 className="text-lg font-bold text-[#fbf0df] mb-2">turn(x, y)</h3>
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+                {t("developer.methods.turn.desc")}
+              </p>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                turn(x: number, y: number): void
+              </code>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
+              <h3 className="text-lg font-bold text-[#fbf0df] mb-2">getStrategy()</h3>
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+                {t("developer.methods.strategy.desc")}
+              </p>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                getStrategy(): Strategy
+              </code>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
+              <h3 className="text-lg font-bold text-[#fbf0df] mb-2">getAdversaryBoard()</h3>
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
+                {t("developer.methods.adversary.desc")}
+              </p>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                getAdversaryBoard(): Board
+              </code>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.rules.title")}</span></h2>
+          <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5">
+            <ul className="text-[#fbf0df]/50 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-[#00d4ff]">
+              <li>{t("developer.rules.items.0")}</li>
+              <li>{t("developer.rules.items.1")}</li>
+              <li>{t("developer.rules.items.2")}</li>
+              <li>{t("developer.rules.items.3")}</li>
+              <li>{t("developer.rules.items.4")}</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.biome.title")}</span></h2>
+          <p className="text-[#fbf0df]/50 leading-relaxed mb-6">
+            {t("developer.biome.desc")}
+          </p>
+          <a
+            href="/biome.json"
+            download
+            className="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-sm no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all btn-primary"
+          >
+            {t("developer.biome.download")}
+          </a>
         </section>
       </div>
     </div>

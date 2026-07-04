@@ -3,25 +3,21 @@ import "./index.css";
 import logo from "./logo.svg";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
 import { I18nProvider, useI18n } from "./i18n/I18nContext";
-import { Developer } from "./pages/Developer";
 import { Terms } from "./pages/Terms";
 import { Privacy } from "./pages/Privacy";
-import { Submit } from "./pages/Submit";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Documentation } from "./pages/Documentation";
 import { Profile } from "./pages/Profile";
 import { Device } from "./pages/Device";
 
-type Page = "home" | "developer" | "terms" | "privacy" | "submit" | "login" | "register" | "documentation" | "profile" | "notfound" | "device";
+type Page = "home" | "terms" | "privacy" | "login" | "register" | "documentation" | "profile" | "notfound" | "device";
 
 function pathToPage(path: string): Page {
   if (path === "/") { return "home"; }
   switch (path) {
-    case "/developer": return "developer";
     case "/terms": return "terms";
     case "/privacy": return "privacy";
-    case "/submit": return "submit";
     case "/login": return "login";
     case "/register": return "register";
     case "/documentation": return "documentation";
@@ -33,10 +29,8 @@ function pathToPage(path: string): Page {
 
 function pageToPath(page: Page): string {
   switch (page) {
-    case "developer": return "/developer";
     case "terms": return "/terms";
     case "privacy": return "/privacy";
-    case "submit": return "/submit";
     case "login": return "/login";
     case "register": return "/register";
     case "documentation": return "/documentation";
@@ -81,7 +75,6 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
   const { user, loading, logout } = useAuth();
   const { t, toggleLang } = useI18n();
   const links: { label: string; page: Page }[] = [
-    { label: t("nav.developer"), page: "developer" },
     { label: t("nav.documentation"), page: "documentation" },
     { label: t("nav.terms"), page: "terms" },
     { label: t("nav.privacy"), page: "privacy" },
@@ -118,14 +111,15 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
               className="text-[#fbf0df]/80 hover:text-[#00d4ff] transition-colors bg-transparent border-0 cursor-pointer"
             >{user.username}</button>
             <button type="button" onClick={() => { logout().then(() => onNavigate("home")).catch(() => {}); }}
-              className="text-[#fbf0df]/50 hover:text-[#fbf0df] bg-transparent border-0 cursor-pointer transition-colors"
+              className="text-[#ff6b6b]/60 hover:text-[#ff6b6b] bg-transparent border-0 cursor-pointer transition-colors"
+              title={t("nav.logout")}
             >
-              {t("nav.logout")}
-            </button>
-            <button type="button" onClick={() => onNavigate("submit")}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white font-semibold no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
-            >
-              {t("nav.submitRobot")}
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <title>{t("nav.logout")}</title>
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
             </button>
           </div>
         ) : (
@@ -163,13 +157,13 @@ function Hero({ onNavigate }: { onNavigate: (page: Page) => void }) {
       </p>
       <div className="flex items-center gap-4">
         <button type="button"
-          onClick={() => onNavigate("developer")}
+          onClick={() => onNavigate("documentation")}
           className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-lg no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all hover:-translate-y-0.5 cursor-pointer border-0 btn-primary"
         >
           {t("hero.startCoding")}
         </button>
         <button type="button"
-          onClick={() => onNavigate("submit")}
+          onClick={() => onNavigate("profile")}
           className="px-8 py-3 rounded-xl border border-[#fbf0df]/20 text-[#fbf0df] font-bold text-lg no-underline hover:border-[#00d4ff]/50 hover:text-[#00d4ff] transition-all cursor-pointer bg-transparent"
         >
           {t("hero.submitRobot")}
@@ -408,10 +402,10 @@ function CTA({ onNavigate }: { onNavigate: (page: Page) => void }) {
           <h2 className="text-3xl md:text-4xl font-bold text-[#fbf0df] mb-4 relative">{t("cta.title")}</h2>
           <p className="text-[#fbf0df]/50 mb-10 max-w-xl mx-auto leading-relaxed relative">{t("cta.desc")}</p>
           <div className="flex items-center justify-center gap-4 relative">
-            <button type="button" onClick={() => onNavigate("developer")}
+            <button type="button" onClick={() => onNavigate("documentation")}
               className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
             >{t("cta.docs")}</button>
-            <button type="button" onClick={() => onNavigate("submit")}
+            <button type="button" onClick={() => onNavigate("profile")}
               className="px-8 py-3 rounded-xl border border-[#fbf0df]/20 text-[#fbf0df] font-bold no-underline hover:border-[#00d4ff]/50 hover:text-[#00d4ff] transition-all cursor-pointer bg-transparent"
             >{t("cta.submit")}</button>
           </div>
@@ -436,9 +430,8 @@ function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
         <div>
           <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">{t("nav.platform")}</h4>
           <div className="flex flex-col gap-2 text-sm">
-            <button type="button" onClick={() => onNavigate("developer")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.developer")}</button>
             <button type="button" onClick={() => onNavigate("documentation")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.documentation")}</button>
-            <button type="button" onClick={() => onNavigate("submit")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.submit")}</button>
+            <button type="button" onClick={() => onNavigate("profile")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.submit")}</button>
           </div>
         </div>
         <div>
@@ -480,10 +473,8 @@ function AppContent() {
 
   const renderPage = () => {
     switch (page) {
-      case "developer": return <Developer />;
       case "terms": return <Terms />;
       case "privacy": return <Privacy />;
-      case "submit": return <Submit />;
       case "login": return <Login onNavigate={handleNavigate} />;
       case "register": return <Register onNavigate={handleNavigate} />;
       case "documentation": return <Documentation />;
@@ -517,11 +508,11 @@ function AppContent() {
 
 export function App() {
   return (
-    <I18nProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <I18nProvider>
         <AppContent />
-      </AuthProvider>
-    </I18nProvider>
+      </I18nProvider>
+    </AuthProvider>
   );
 }
 

@@ -7,7 +7,7 @@ import { Strategy, type Direction } from "../classes/Strategy";
 import { State } from "../types/State";
 import { Boats } from "../types/Boats";
 
-type Tab = "bots" | "leaderboard" | "estimate" | "train" | "settings";
+type Tab = "bots" | "leaderboard" | "estimate" | "train" | "settings" | "submit";
 
 interface Bot {
   id: number;
@@ -72,7 +72,7 @@ export function Profile() {
         </div>
 
         <div className="flex gap-1 mb-10 p-1 rounded-xl bg-[#16161f] border border-[#fbf0df]/5">
-          {(["bots", "leaderboard", "estimate", "train", "settings"] as Tab[]).map((tKey) => (
+          {(["bots", "leaderboard", "estimate", "train", "submit", "settings"] as Tab[]).map((tKey) => (
             <button
               key={tKey}
               type="button"
@@ -93,6 +93,7 @@ export function Profile() {
         {tab === "estimate" && <EstimateTab />}
         {tab === "settings" && <SettingsTab userId={user.id} />}
         {tab === "train" && <TrainTab />}
+        {tab === "submit" && <SubmitTab />}
       </div>
     </div>
   );
@@ -1059,11 +1060,11 @@ function EstimateTab() {
       const userRes = await authFetch("/api/bots/train/transpile");
       if (!userRes.ok) {
         const d = await userRes.json();
-        throw new Error(d.error || "Erreur chargement robot");
+        throw new Error(d.error || t("profile.estimate.error.load"));
       }
       const { js: userJs } = await userRes.json();
       const userClassName = userJs.match(/class\s+(\w+)\s+extends\s+\w+/)?.[1];
-      if (!userClassName) { throw new Error("Classe du robot introuvable"); }
+      if (!userClassName) { throw new Error(t("profile.estimate.error.class")); }
 
       const tmplRes = await authFetch("/api/bots/train/templates");
       const templates: { name: string; js: string }[] = await tmplRes.json();
@@ -1185,19 +1186,101 @@ function EstimateTab() {
           {status === "done" && (
             <div className="text-center mt-6">
               <p className="text-xs text-[#fbf0df]/30 mb-4">
-                {results.reduce((sum, r) => sum + r.wins + r.losses + r.draws, 0)} parties jouées
+                {results.reduce((sum, r) => sum + r.wins + r.losses + r.draws, 0)} {t("profile.estimate.played")}
               </p>
               <button
                 type="button"
                 onClick={runEstimation}
                 className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-sm no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
               >
-                Re-estimer
+                {t("profile.estimate.reestimate")}
               </button>
             </div>
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+function SubmitTab() {
+  const { t } = useI18n();
+
+  const steps = [
+    { key: "submit.how.steps.0", text: t("submit.how.steps.0") },
+    { key: "submit.how.steps.1", text: t("submit.how.steps.1") },
+    { key: "submit.how.steps.2", text: t("submit.how.steps.2") },
+    { key: "submit.how.steps.3", text: t("submit.how.steps.3") },
+  ];
+
+  return (
+    <div>
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-[#fbf0df] mb-4"><span className="text-gradient">{t("submit.event.title")}</span></h2>
+        <div className="p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 text-center card-hover">
+          <p className="text-[#fbf0df]/30 text-sm uppercase tracking-widest mb-2">{t("submit.event.label")}</p>
+          <p className="text-3xl font-bold text-[#00d4ff]">{t("submit.event.time")}</p>
+          <p className="text-[#fbf0df]/50 text-sm mt-4">
+            {t("submit.event.desc")}
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-[#fbf0df] mb-4"><span className="text-gradient">{t("submit.how.title")}</span></h2>
+        <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5">
+          <ol className="text-[#fbf0df]/50 text-sm leading-relaxed space-y-4 list-decimal list-inside">
+            {steps.map((step) => (
+              <li key={step.key}>{step.text}</li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold text-[#fbf0df] mb-4"><span className="text-gradient">{t("submit.form.title")}</span></h2>
+        <form
+          className="p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 space-y-6"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <div>
+            <label htmlFor="name" className="block text-sm font-bold text-[#fbf0df] mb-2">
+              {t("submit.form.name")}
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder={t("submit.form.namePlaceholder")}
+              className="w-full bg-transparent border-2 border-[#fbf0df]/10 rounded-xl px-4 py-3 text-[#fbf0df] font-mono text-sm outline-none focus:border-[#00d4ff]/50 transition-colors placeholder-[#fbf0df]/20"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="file" className="block text-sm font-bold text-[#fbf0df] mb-2">
+              {t("submit.form.file")}
+            </label>
+            <div className="border-2 border-dashed border-[#fbf0df]/10 rounded-xl p-8 text-center hover:border-[#00d4ff]/30 transition-colors cursor-pointer">
+              <p className="text-[#fbf0df]/50 text-sm mb-1">
+                {t("submit.form.dragDrop")}
+              </p>
+              <p className="text-[#fbf0df]/20 text-xs">{t("submit.form.maxSize")}</p>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full px-8 py-4 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-base no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all disabled:opacity-30 disabled:cursor-not-allowed btn-primary"
+            disabled
+          >
+            {t("submit.form.submit")}
+          </button>
+
+          <p className="text-[#fbf0df]/20 text-xs text-center">
+            {t("submit.form.agreement")}{" "}
+            <a href="/terms" className="text-[#fbf0df]/40 underline hover:text-[#00d4ff] transition-colors">CGU</a>.
+          </p>
+        </form>
+      </section>
     </div>
   );
 }

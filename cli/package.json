@@ -1,6 +1,8 @@
 {
   "name": "@navalcode/cli",
   "version": "0.1.0",
+  "description": "CLI tool for the NavalCode battleship AI competition platform",
+  "type": "module",
   "main": "dist/index.js",
   "bin": {
     "navalcode": "./dist/index.js"
@@ -9,5 +11,18 @@
     "build": "bun build ./index.ts --outdir=dist --target=node",
     "dev": "bun run ./index.ts"
   },
-  "files": ["dist"]
+  "files": ["dist"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navalcode/cli.git"
+  },
+  "keywords": [
+    "battleship",
+    "ai",
+    "game",
+    "bot",
+    "navalcode",
+    "cli"
+  ]
 }

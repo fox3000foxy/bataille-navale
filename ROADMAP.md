@@ -6,17 +6,17 @@
 - [x] BatchCalculator (simulations en lots)
 - [x] Landing page du site
 - [x] Pages CGU et Politique de confidentialite
-- [x] Page developpeur avec documentation SDK
-- [x] Page de soumission de robot
+- [x] Page de documentation (anciennement Developpeur + Documentation mergees)
+- [x] Page de soumission de robot (deplacee dans l'onglet "Soumettre" du profil)
 - [x] Telechargement du fichier biome.json
-- [ ] Systeme d'authentification
+- [x] Systeme d'authentification (device auth, login/register, argon2id, sessions)
 
 ## Phase 2 -- SDK et soumission
 - [x] Execution en sandbox (isolation securisee via processus separe)
 - [x] En-tetes de securite HTTP (CSP, X-Frame-Options, etc.)
-- [ ] SDK pour developpeurs (package npm ou template GitHub)
-- [ ] Validateur de soumission (tsc -b, biome check, pas d'imports externes)
-- [ ] API de soumission
+- [x] SDK publie sur npm (@navalcode/sdk@0.1.0)
+- [x] Validateur de soumission (runtime: transpile → instancie → appelle think/turn/getStrategy)
+- [ ] API de soumission (POST /api/bots/sync existe, formulaire pas encore fonctionnel)
 - [ ] Protection rate-limiting sur les API
 
 ## Phase 3 -- Evenements et paris
@@ -29,7 +29,7 @@
   - 75% parieurs (reparti au prorata des mises)
 
 ## Phase 4 -- Communaute
-- [ ] Classement des robots
+- [x] Classement des robots (onglet Classement dans le profil)
 - [ ] Classement des parieurs
 - [ ] Historique des evenements passes
 - [ ] Forum / discussions
@@ -37,8 +37,8 @@
 
 ## Phase 5 -- Ameliorations
 - [ ] Editor de bot en ligne
-- [ ] Mode entrainement (vs bots de base)
-- [ ] Authentification securisee (argon2, JWT)
+- [x] Mode entrainement (vs bots de base, dans l'onglet "S'entrainer")
+- [x] Authentification securisee (argon2, sessions)
 - [ ] Tournois saisonniers
 - [ ] API publique pour recuperer les resultats
 

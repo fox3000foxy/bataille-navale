@@ -13,7 +13,7 @@ interface SyncResult {
 async function syncCode(filePath: string): Promise<boolean> {
   const token = getToken();
   if (!token) {
-    console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} Non authentifié. Lancez ${CYAN}navalcode auth${RESET} d'abord.\n`);
+    console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} Not authenticated. Run ${CYAN}navalcode auth${RESET} first.\n`);
     return false;
   }
 
@@ -21,7 +21,7 @@ async function syncCode(filePath: string): Promise<boolean> {
   try {
     code = readFileSync(filePath, "utf-8");
   } catch {
-    console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} Impossible de lire ${filePath}\n`);
+    console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} Unable to read ${filePath}\n`);
     return false;
   }
 
@@ -36,7 +36,7 @@ async function syncCode(filePath: string): Promise<boolean> {
 
   const data = await res.json() as SyncResult & { details?: string[] };
   if (!res.ok || data.error) {
-    console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} ${data.error || "Échec de la synchronisation"}\n`);
+    console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} ${data.error || "Sync failed"}\n`);
     if (data.details?.length) {
       for (const err of data.details) {
         console.error(`    ${RED}✗${RESET} ${err}`);
@@ -46,7 +46,7 @@ async function syncCode(filePath: string): Promise<boolean> {
     return false;
   }
 
-  console.log(`  ${GREEN}✓${RESET} ${MUTED}Syncé :${RESET} ${TEXT}${BOLD}${data.bot!.name}${RESET} ${DIM}(${data.bot!.status})${RESET}`);
+  console.log(`  ${GREEN}✓${RESET} ${MUTED}Synced:${RESET} ${TEXT}${BOLD}${data.bot!.name}${RESET} ${DIM}(${data.bot!.status})${RESET}`);
   return true;
 }
 
@@ -56,16 +56,16 @@ export async function sync(filePath: string): Promise<void> {
   const fullPath = resolve(filePath);
 
   if (!existsSync(fullPath)) {
-    console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} Fichier introuvable : ${fullPath}\n`);
+    console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} File not found: ${fullPath}\n`);
     process.exit(1);
   }
 
   if (!statSync(fullPath).isFile()) {
-    console.error(`\n  ${gradient(" Erreur ", [239, 68, 68], [200, 50, 50])} ${fullPath} n'est pas un fichier\n`);
+    console.error(`\n  ${gradient(" Error ", [239, 68, 68], [200, 50, 50])} ${fullPath} is not a file\n`);
     process.exit(1);
   }
 
-  console.log(`  ${MUTED}Fichier :${RESET} ${TEXT}${fullPath}${RESET}\n`);
+  console.log(`  ${MUTED}File:${RESET} ${TEXT}${fullPath}${RESET}\n`);
 
   const name = fullPath.split("/").pop()?.replace(".ts", "") || "bot";
   console.log(`${box(`  ${name}  `)}\n`);
@@ -74,7 +74,7 @@ export async function sync(filePath: string): Promise<void> {
   const ok = await syncCode(fullPath);
   if (!ok) { process.exit(1); }
 
-  console.log(`  ${DIM}Surveillance du fichier...${RESET} ${GRAY}(Ctrl+C pour arrêter)${RESET}\n`);
+  console.log(`  ${DIM}Watching file for changes...${RESET} ${GRAY}(Ctrl+C to stop)${RESET}\n`);
 
   let timeout: ReturnType<typeof setTimeout> | null = null;
   watch(fullPath, () => {

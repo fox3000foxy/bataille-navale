@@ -233,6 +233,7 @@
   "profile.tabs.bots": "My bots",
   "profile.tabs.leaderboard": "Leaderboard",
   "profile.tabs.settings": "Settings",
+  "profile.tabs.submit": "Submit",
   "profile.tabs.train": "Training",
   "profile.bots.empty": "No bots submitted yet.",
   "profile.bots.name": "Name",
@@ -277,7 +278,17 @@
   "profile.estimate.losses": "Losses",
   "profile.estimate.draws": "Draws",
   "profile.estimate.winrate": "Winrate",
-  "profile.estimate.played_one": "{n} game played",
-  "profile.estimate.played_other": "{n} games played",
-  "profile.estimate.total": "Total"
+  "profile.estimate.reestimate": "Re-estimate",
+  "profile.estimate.played": "games played",
+  "profile.estimate.error.load": "Error loading bot",
+  "profile.estimate.error.class": "Bot class not found",
+  "docs.install.title": "Installation",
+  "docs.install.desc": "The SDK and CLI are available on npm:",
+  "docs.cli.title": "CLI",
+  "docs.cli.desc": "The CLI lets you sync your robot from the terminal and test it locally.",
+  "docs.cli.auth.title": "Authentication",
+  "docs.cli.auth.descBefore": "Generates a code to enter at",
+  "docs.cli.auth.descAfter": "to link the CLI to your account.",
+  "docs.cli.sync.title": "Sync",
+  "docs.cli.sync.desc": "Sends your robot to the server and watches for changes in real time (Ctrl+C to stop)."
 }
