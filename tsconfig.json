@@ -23,7 +23,8 @@
     "noImplicitOverride": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@navalcode/sdk": ["./sdk/index.ts"]
     },
 
     // Some stricter flags (disabled by default)
