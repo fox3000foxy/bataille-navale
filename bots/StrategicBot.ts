@@ -39,8 +39,8 @@ export class StrategicBot extends Brain {
     for (const boat of boatTypes) {
       let placed = false;
       while (!placed) {
-        const x = Math.floor(Math.random() * 11);
-        const y = Math.floor(Math.random() * 11);
+        const x = Math.floor(Math.random() * 10);
+        const y = Math.floor(Math.random() * 10);
         const direction = directions[Math.floor(Math.random() * 4)]!;
         const testCells = this.getCellsForBoat(boat, x, y, direction);
 
@@ -139,8 +139,8 @@ export class StrategicBot extends Brain {
     let x: number;
     let y: number;
     do {
-      x = Math.floor(Math.random() * 11);
-      y = Math.floor(Math.random() * 11);
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
     } while (this.targetedCells.has(`${x},${y}`));
     this.targetedCells.add(`${x},${y}`);
     return { x, y };
