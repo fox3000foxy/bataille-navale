@@ -6,7 +6,15 @@
   "scripts": {
     "dev": "bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts"
+    "build": "bun run build.ts",
+    
+    "format": "bunx --bun @biomejs/biome format --write ./src",
+    "check": "bunx --bun @biomejs/biome check ./src",
+    "lint": "bunx --bun @biomejs/biome lint ./src",
+    "lint:write": "bunx --bun @biomejs/biome lint --write ./src",
+    "test": "bun test ./tests",
+    "test:watch": "bun test --watch ./tests",
+    "test:coverage": "bun test --coverage ./tests"
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.1.2",
