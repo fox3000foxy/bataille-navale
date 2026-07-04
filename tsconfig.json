@@ -7,7 +7,7 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-    "types": ["bun", "react"],
+    "types": ["bun", "react", "node"],
 
     // Bundler mode
     "moduleResolution": "bundler",
@@ -33,5 +33,5 @@
     "noPropertyAccessFromIndexSignature": false
   },
 
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["dist", "node_modules", "cli"]
 }
