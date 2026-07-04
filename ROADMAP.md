@@ -16,11 +16,11 @@
 - [x] En-tetes de securite HTTP (CSP, X-Frame-Options, etc.)
 - [x] SDK publie sur npm (@navalcode/sdk@0.1.0)
 - [x] Validateur de soumission (runtime: transpile → instancie → appelle think/turn/getStrategy)
-- [ ] API de soumission (POST /api/bots/sync existe, formulaire pas encore fonctionnel)
-- [ ] Protection rate-limiting sur les API
+- [x] API de soumission (POST /api/bots/sync pour le DEV, POST /api/bots/finalize)
+- [x] Protection rate-limiting sur auth (register/login) — reste a etendre sur sync/finalize
 
 ## Phase 3 -- Evenements et paris
-- [ ] Evenements hebdomadaires (chaque weekend)
+- [ ] Tournoi a bracket (single elim ou double elim, 500 simulations par match, byes si < puissance de 2, phases qualifs / groupes si > 64 bots)
 - [ ] Systeme de pari
 - [ ] Paiement securise
 - [ ] Smart contract / reversement automatique :
@@ -36,7 +36,6 @@
 - [ ] Statistiques publiques
 
 ## Phase 5 -- Ameliorations
-- [ ] Editor de bot en ligne
 - [x] Mode entrainement (vs bots de base, dans l'onglet "S'entrainer")
 - [x] Authentification securisee (argon2, sessions)
 - [ ] Tournois saisonniers
