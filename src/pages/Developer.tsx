@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18nContext";
 import logo from "../logo.svg";
 
 function Step({ num, title, desc }: { num: string; title: string; desc: string }) {
@@ -20,20 +21,37 @@ function Pre({ children }: { children: string }) {
   );
 }
 
+function Code({ children }: { children: string }) {
+  return (
+    <code className="text-[#00d4ff] bg-[#0d0d14] px-2 py-0.5 rounded font-mono text-sm border border-[#00d4ff]/20">
+      {children}
+    </code>
+  );
+}
+
 export function Developer() {
+  const { t } = useI18n();
+
+  const rules = [
+    { key: "developer.rules.items.0", text: t("developer.rules.items.0") },
+    { key: "developer.rules.items.1", text: t("developer.rules.items.1") },
+    { key: "developer.rules.items.2", text: t("developer.rules.items.2") },
+    { key: "developer.rules.items.3", text: t("developer.rules.items.3") },
+    { key: "developer.rules.items.4", text: t("developer.rules.items.4") },
+  ];
+
   return (
     <div className="min-h-screen pt-24 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-12">
           <img src={logo} alt="" className="h-12 opacity-70" />
-          <h1 className="text-4xl font-bold text-[#fbf0df]">Documentation développeur</h1>
+          <h1 className="text-4xl font-bold text-[#fbf0df]">{t("developer.title")}</h1>
         </div>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">SDK</span></h2>
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.sdk.title")}</span></h2>
           <p className="text-[#fbf0df]/50 leading-relaxed mb-6">
-            Le SDK NavalCode vous permet de développer votre propre robot en TypeScript.
-            Votre robot doit étendre la classe abstraite <code className="text-[#00d4ff] bg-[#16161f] px-2 py-0.5 rounded font-mono text-sm border border-[#00d4ff]/20">Brain</code> et implémenter ses méthodes.
+            {t("developer.sdk.desc")} <Code>Brain</Code>
           </p>
 
           <div className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
@@ -62,12 +80,12 @@ export class MyBot extends Brain {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Méthodes à implémenter</span></h2>
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.methods.title")}</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">think()</h3>
               <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-                Appelée à chaque tour. Doit retourner les coordonnées {'{ x, y }'} de la case à attaquer.
+                {t("developer.methods.think.desc")}
               </p>
               <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
                 think(): {"{ x: number; y: number }"}
@@ -77,7 +95,7 @@ export class MyBot extends Brain {
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">turn(x, y)</h3>
               <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-                Notifie votre robot que l'adversaire a tiré sur la case (x, y). À vous de déterminer si c'est un tir raté ou réussi.
+                {t("developer.methods.turn.desc")}
               </p>
               <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
                 turn(x: number, y: number): void
@@ -87,7 +105,7 @@ export class MyBot extends Brain {
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">getStrategy()</h3>
               <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-                Retourne la stratégie de placement de vos bateaux. Appelée une fois au début de chaque partie.
+                {t("developer.methods.strategy.desc")}
               </p>
               <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
                 getStrategy(): Strategy
@@ -97,7 +115,7 @@ export class MyBot extends Brain {
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">getAdversaryBoard()</h3>
               <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-                Retourne le plateau adverse tel que connu par votre robot. Utile pour les stratégies avancées.
+                {t("developer.methods.adversary.desc")}
               </p>
               <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
                 getAdversaryBoard(): Board
@@ -107,7 +125,7 @@ export class MyBot extends Brain {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Types et enums</span></h2>
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.types.title")}</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
               <div className="px-6 py-3 border-b border-[#fbf0df]/5">
@@ -138,41 +156,37 @@ export class MyBot extends Brain {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Bots de référence</span></h2>
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.bots.title")}</span></h2>
           <p className="text-[#fbf0df]/50 leading-relaxed mb-6">
-            Trois bots sont fournis comme point de départ :
+            {t("developer.bots.desc")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Step num="Random" title="Tirs aléatoires" desc="Place ses bateaux et tire de manière entièrement aléatoire." />
-            <Step num="SmartBot" title="Chasse intelligente" desc="Place ses bateaux éloignés. En mode chasse dès qu'il touche un bateau." />
-            <Step num="StrategicBot" title="Recherche par grille" desc="Parcourt le plateau avec un pas de 3 pour trouver les bateaux efficacement." />
+            <Step num="Random" title={t("developer.bots.random")} desc={t("developer.bots.random.desc")} />
+            <Step num="SmartBot" title={t("developer.bots.smart")} desc={t("developer.bots.smart.desc")} />
+            <Step num="StrategicBot" title={t("developer.bots.strategic")} desc={t("developer.bots.strategic.desc")} />
           </div>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Règles de soumission</span></h2>
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.rules.title")}</span></h2>
           <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5">
             <ul className="text-[#fbf0df]/50 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-[#00d4ff]">
-              <li>Aucun import de modules externes autorisé (protection contre les virus)</li>
-              <li>Le code doit passer <code className="text-[#00d4ff] bg-[#0d0d14] px-2 py-0.5 rounded font-mono border border-[#00d4ff]/20">tsc -b</code> sans erreur</li>
-              <li>Le code doit passer <code className="text-[#00d4ff] bg-[#0d0d14] px-2 py-0.5 rounded font-mono border border-[#00d4ff]/20">biome check</code> sans erreur</li>
-              <li>Les simulations sont exécutées dans un environnement sandboxé isolé</li>
-              <li>Un seul fichier .ts par soumission</li>
+              {rules.map((rule) => <li key={rule.key}>{rule.text}</li>)}
             </ul>
           </div>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Configuration Biome</span></h2>
+          <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.biome.title")}</span></h2>
           <p className="text-[#fbf0df]/50 leading-relaxed mb-6">
-            Téléchargez le fichier de configuration Biome utilisé par le validateur pour tester votre code en local.
+            {t("developer.biome.desc")}
           </p>
           <a
             href="/biome.json"
             download
             className="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-sm no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all btn-primary"
           >
-            Télécharger biome.json
+            {t("developer.biome.download")}
           </a>
         </section>
       </div>
