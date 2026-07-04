@@ -4,18 +4,20 @@
 - [x] Classes de base (Board, Strategy, Game, Brain)
 - [x] Bots de base (Random, SmartBot, StrategicBot)
 - [x] BatchCalculator (simulations en lots)
-- [ ] Landing page du site
-- [ ] Pages CGU et Politique de confidentialite
-- [ ] Page developpeur avec documentation SDK
-- [ ] Page de soumission de robot
-- [ ] Telechargement du fichier biome.json
+- [x] Landing page du site
+- [x] Pages CGU et Politique de confidentialite
+- [x] Page developpeur avec documentation SDK
+- [x] Page de soumission de robot
+- [x] Telechargement du fichier biome.json
 - [ ] Systeme d'authentification
 
 ## Phase 2 -- SDK et soumission
+- [x] Execution en sandbox (isolation securisee via processus separe)
+- [x] En-tetes de securite HTTP (CSP, X-Frame-Options, etc.)
 - [ ] SDK pour developpeurs (package npm ou template GitHub)
 - [ ] Validateur de soumission (tsc -b, biome check, pas d'imports externes)
-- [ ] Execution en sandbox (isolation securisee)
 - [ ] API de soumission
+- [ ] Protection rate-limiting sur les API
 
 ## Phase 3 -- Evenements et paris
 - [ ] Evenements hebdomadaires (chaque weekend)
@@ -36,5 +38,12 @@
 ## Phase 5 -- Ameliorations
 - [ ] Editor de bot en ligne
 - [ ] Mode entrainement (vs bots de base)
+- [ ] Authentification securisee (argon2, JWT)
 - [ ] Tournois saisonniers
 - [ ] API publique pour recuperer les resultats
+
+## Securite (applique)
+- [x] Sandbox d'execution (processus Bun isole, globaux dangereux retires, timeout)
+- [x] En-tetes HTTP de securite (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
+- [x] Base de donnees SQLite avec WAL mode et foreign keys
+- [x] Aucune concaténation SQL directe (requetes preparees via bun:sqlite)
