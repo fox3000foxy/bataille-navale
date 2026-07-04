@@ -61,9 +61,28 @@ function getIP(req: Request): string {
   return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
 }
 
+function serveFile(path: string, filename: string) {
+  return secureHeaders(new Response(Bun.file(path), {
+    headers: {
+      "Content-Type": "text/typescript; charset=utf-8",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+    },
+  }));
+}
+
 const SERVER = serve({
   routes: {
     "/*": index,
+
+    "/api/bots/Random.ts": {
+      GET() { return serveFile("bots/Random.ts", "Random.ts"); },
+    },
+    "/api/bots/SmartBot.ts": {
+      GET() { return serveFile("bots/SmartBot.ts", "SmartBot.ts"); },
+    },
+    "/api/bots/StrategicBot.ts": {
+      GET() { return serveFile("bots/StrategicBot.ts", "StrategicBot.ts"); },
+    },
 
     "/api/health": {
       GET() {

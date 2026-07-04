@@ -208,6 +208,13 @@ export function Documentation() {
                 <span className="block text-sm text-[#fbf0df]">{t("docs.bots.random.shot")}</span>
               </div>
             </div>
+            <div className="flex items-center gap-3 mb-4">
+              <a href="/api/bots/Random.ts" download
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold text-xs no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all btn-primary"
+              >
+                Telecharger .ts
+              </a>
+            </div>
             <Pre>{`export class Random extends Brain {
   think(): { x: number; y: number } {
     let x: number;
@@ -248,6 +255,13 @@ export function Documentation() {
                 <span className="block text-sm text-[#fbf0df]">{t("docs.bots.smart.shot")}</span>
               </div>
             </div>
+            <div className="flex items-center gap-3 mb-4">
+              <a href="/api/bots/SmartBot.ts" download
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold text-xs no-underline hover:shadow-[0_0_25px rgba(0,212,255,0.3)] transition-all btn-primary"
+              >
+                Telecharger .ts
+              </a>
+            </div>
             <Pre>{`export class SmartBot extends Brain {
   getStrategy(): Strategy {
     // Place les bateaux avec un espace de 1 case
@@ -258,8 +272,8 @@ export function Documentation() {
   think(): { x: number; y: number } {
     // 1. Cherche les State.Hit sur le plateau adverse
     // 2. Ajoute les cases adjacentes aux touches
-    // 3. Explore les hits en priorité
-    // 4. Sinon, tire aléatoirement
+    // 3. Explore les hits en priorite
+    // 4. Sinon, tire aleatoirement
     ...
   }
 }`}</Pre>
@@ -279,11 +293,15 @@ export function Documentation() {
                 <span className="block text-sm text-[#fbf0df]">{t("docs.bots.strategic.shot")}</span>
               </div>
             </div>
+            <div className="flex items-center gap-3 mb-4">
+              <a href="/api/bots/StrategicBot.ts" download
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold text-xs no-underline hover:shadow-[0_0_25px rgba(0,212,255,0.3)] transition-all btn-primary"
+              >
+                Telecharger .ts
+              </a>
+            </div>
             <Pre>{`export class StrategicBot extends Brain {
   private buildSearchPattern(): void {
-    // Grille avec un pas de 3 :
-    // (0,0), (0,3), (0,6), (0,9),
-    // (3,0), (3,3), ...
     for (let y = 0; y < 11; y += 3) {
       for (let x = 0; x < 11; x += 3) {
         this.searchQueue.push({ x, y });
@@ -294,7 +312,7 @@ export function Documentation() {
   think(): { x: number; y: number } {
     // 1. Phase de chasse : explore les cases adjacentes
     // 2. Phase de recherche : suit la grille pas-3
-    // 3. Fallback : aléatoire
+    // 3. Fallback : aleatoire
     ...
   }
 }`}</Pre>
