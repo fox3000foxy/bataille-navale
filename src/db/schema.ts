@@ -74,8 +74,18 @@ CREATE TABLE IF NOT EXISTS bets (
   FOREIGN KEY (bot_id) REFERENCES bots(id)
 )`;
 
+const CREATE_SESSIONS = `
+CREATE TABLE IF NOT EXISTS sessions (
+  id TEXT PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  created_at TEXT DEFAULT (datetime('now')),
+  expires_at TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+)`;
+
 export const SCHEMA = [
   CREATE_USERS,
+  CREATE_SESSIONS,
   CREATE_BOTS,
   CREATE_EVENTS,
   CREATE_EVENT_BOTS,
