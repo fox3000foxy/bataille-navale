@@ -1,3 +1,5 @@
+import { useI18n } from "../i18n/I18nContext";
+
 function Pre({ children }: { children: string }) {
   return (
     <pre className="text-sm text-[#fbf0df]/70 font-mono leading-relaxed overflow-x-auto bg-[#0d0d14] p-4 rounded-xl border-l-2 border-[#00d4ff]/30">
@@ -24,6 +26,8 @@ function DocCard({ title, children }: { title: string; children: React.ReactNode
 }
 
 export function Documentation() {
+  const { t } = useI18n();
+
   return (
     <div className="min-h-screen pt-24 px-6">
       <div className="max-w-4xl mx-auto">
@@ -31,30 +35,30 @@ export function Documentation() {
           <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#00d4ff]/20 to-[#7c3aed]/20 border border-[#00d4ff]/20 text-sm font-bold text-[#00d4ff]">
             D
           </div>
-          <h1 className="text-4xl font-bold text-[#fbf0df]">Documentation SDK</h1>
+          <h1 className="text-4xl font-bold text-[#fbf0df]">{t("docs.title")}</h1>
         </div>
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6">
-            <span className="text-gradient">Enums</span>
+            <span className="text-gradient">{t("docs.enums.title")}</span>
           </h2>
 
-          <DocCard title="State">
+          <DocCard title={t("docs.state.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Représente l'état d'une cellule sur le plateau de jeu.
+              {t("docs.state.desc")}
             </p>
             <div className="grid grid-cols-3 gap-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#fbf0df]">None</span>
-                <span className="text-xs text-[#fbf0df]/40">Case non ciblée</span>
+                <span className="text-xs text-[#fbf0df]/40">{t("docs.state.none")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#ff6b35]">Hit</span>
-                <span className="text-xs text-[#fbf0df]/40">Touché mais pas coulé</span>
+                <span className="text-xs text-[#fbf0df]/40">{t("docs.state.hit")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#00d4ff]">Sunk</span>
-                <span className="text-xs text-[#fbf0df]/40">Bateau coulé</span>
+                <span className="text-xs text-[#fbf0df]/40">{t("docs.state.sunk")}</span>
               </div>
             </div>
             <Pre>{`enum State {
@@ -64,26 +68,26 @@ export function Documentation() {
 }`}</Pre>
           </DocCard>
 
-          <DocCard title="Boats">
+          <DocCard title={t("docs.boats.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Énumération des types de bateaux avec leur taille (en nombre de cases).
+              {t("docs.boats.desc")}
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#fbf0df]">AircraftCarrier</span>
-                <span className="text-xs text-[#00d4ff]">5 cases</span>
+                <span className="text-xs text-[#00d4ff]">5 {t("docs.boats.cells")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#fbf0df]">Cruiser</span>
-                <span className="text-xs text-[#00d4ff]">4 cases</span>
+                <span className="text-xs text-[#00d4ff]">4 {t("docs.boats.cells")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#fbf0df]">TorpedoBoat</span>
-                <span className="text-xs text-[#00d4ff]">3 cases</span>
+                <span className="text-xs text-[#00d4ff]">3 {t("docs.boats.cells")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5 text-center">
                 <span className="block text-sm font-bold text-[#fbf0df]">Submarine</span>
-                <span className="text-xs text-[#00d4ff]">2 cases</span>
+                <span className="text-xs text-[#00d4ff]">2 {t("docs.boats.cells")}</span>
               </div>
             </div>
             <Pre>{`enum Boats {
@@ -97,23 +101,23 @@ export function Documentation() {
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6">
-            <span className="text-gradient">Classes</span>
+            <span className="text-gradient">{t("docs.classes.title")}</span>
           </h2>
 
-          <DocCard title="Board">
+          <DocCard title={t("docs.board.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Plateau de jeu de 11x11 cases. Chaque cellule contient un état <Code>State</Code>.
+              {t("docs.board.desc")} <Code>State</Code>.
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Propriété</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.board.property")}</span>
                 <span className="block text-sm font-mono text-[#fbf0df]">board: State[][]</span>
-                <span className="block text-xs text-[#fbf0df]/40 mt-1">Matrice 11x11 indexée [x][y]</span>
+                <span className="block text-xs text-[#fbf0df]/40 mt-1">{t("docs.board.propertyDesc")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Constructeur</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.board.constructor")}</span>
                 <span className="block text-sm font-mono text-[#fbf0df]">new Board()</span>
-                <span className="block text-xs text-[#fbf0df]/40 mt-1">Initialise toutes les cellules à <Code>State.None</Code></span>
+                <span className="block text-xs text-[#fbf0df]/40 mt-1">{t("docs.board.constructorDesc")}</span>
               </div>
             </div>
             <Pre>{`class Board {
@@ -127,18 +131,18 @@ export function Documentation() {
 }`}</Pre>
           </DocCard>
 
-          <DocCard title="Strategy">
+          <DocCard title={t("docs.strategy.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Gère le placement et la détection des bateaux sur le plateau.
+              {t("docs.strategy.desc")}
             </p>
             <div className="space-y-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Type</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.strategy.type")}</span>
                 <span className="block text-sm font-mono text-[#fbf0df]">Direction = "left" | "right" | "up" | "down"</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Interface</span>
-                <span className="block text-sm font-mono text-[#fbf0df]">BoatPlacement {"{ boat: Boats; x: number; y: number; direction: Direction }"}</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.strategy.interface")}</span>
+                <span className="block text-sm font-mono text-[#fbf0df]">BoatPlacement {'{ boat: Boats; x: number; y: number; direction: Direction }'}</span>
               </div>
             </div>
             <Pre>{`class Strategy {
@@ -151,40 +155,32 @@ export function Documentation() {
 }`}</Pre>
             <div className="mt-4 space-y-2">
               <p className="text-[#fbf0df]/50 text-sm">
-                <span className="text-[#00d4ff] font-mono">addBoat</span> ajoute un bateau &agrave; la strat&eacute;gie.
+                <span className="text-[#00d4ff] font-mono">addBoat</span> {t("docs.strategy.addBoat")}
               </p>
               <p className="text-[#fbf0df]/50 text-sm">
-                <span className="text-[#00d4ff] font-mono">getCells</span> retourne toutes les cellules occup&eacute;es par un placement.
+                <span className="text-[#00d4ff] font-mono">getCells</span> {t("docs.strategy.getCells")}
               </p>
               <p className="text-[#fbf0df]/50 text-sm">
-                <span className="text-[#00d4ff] font-mono">isHit</span> v&eacute;rifie si un tir touche un bateau.
+                <span className="text-[#00d4ff] font-mono">isHit</span> {t("docs.strategy.isHit")}
               </p>
               <p className="text-[#fbf0df]/50 text-sm">
-                <span className="text-[#00d4ff] font-mono">isSunk</span> v&eacute;rifie si toutes les cellules d'un bateau sont touch&eacute;es.
+                <span className="text-[#00d4ff] font-mono">isSunk</span> {t("docs.strategy.isSunk")}
               </p>
             </div>
           </DocCard>
 
-          <DocCard title="Brain">
+          <DocCard title={t("docs.brain.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Classe abstraite &agrave; &eacute;tendre pour cr&eacute;er votre robot. Trois m&eacute;thodes sont &agrave; impl&eacute;menter.
+              {t("docs.brain.desc")}
             </p>
             <Pre>{`abstract class Brain {
   name: string;
 
-  // Appelée à chaque tour. Retourne les coordonnées à attaquer.
   abstract think(): { x: number; y: number };
-
-  // Notifie le robot que l'adversaire a tiré sur (x, y).
   abstract turn(x: number, y: number): void;
-
-  // Retourne la stratégie de placement des bateaux.
   abstract getStrategy(): Strategy;
 
-  // Retourne le plateau adverse connu du robot.
   getAdversaryBoard(): Board;
-
-  // Méthode utilitaire pour placer des bateaux dans getStrategy().
   placeBoats(...boats: [Boats, Direction, [number, number]][]): Strategy;
 }`}</Pre>
           </DocCard>
@@ -192,24 +188,24 @@ export function Documentation() {
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6">
-            <span className="text-gradient">Bots de r&eacute;f&eacute;rence</span>
+            <span className="text-gradient">{t("docs.bots.title")}</span>
           </h2>
           <p className="text-[#fbf0df]/50 leading-relaxed mb-6">
-            Trois robots sont fournis avec le SDK pour vous aider &agrave; d&eacute;marrer. Vous pouvez les utiliser comme base pour votre propre strat&eacute;gie.
+            {t("docs.bots.intro")}
           </p>
 
-          <DocCard title="RandomBot">
+          <DocCard title={t("docs.bots.random.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Le robot le plus simple. Il place ses bateaux al&eacute;atoirement et tire sur des cases au hasard sans aucune strat&eacute;gie.
+              {t("docs.bots.random.desc")}
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Placement</span>
-                <span className="block text-sm text-[#fbf0df]">Al&eacute;atoire</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.placement")}</span>
+                <span className="block text-sm text-[#fbf0df]">{t("docs.bots.random.placement")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Tir</span>
-                <span className="block text-sm text-[#fbf0df]">Al&eacute;atoire</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.shot")}</span>
+                <span className="block text-sm text-[#fbf0df]">{t("docs.bots.random.shot")}</span>
               </div>
             </div>
             <Pre>{`export class Random extends Brain {
@@ -238,18 +234,18 @@ export function Documentation() {
 }`}</Pre>
           </DocCard>
 
-          <DocCard title="SmartBot">
+          <DocCard title={t("docs.bots.smart.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Un robot plus intelligent. Ses bateaux sont plac&eacute;s avec un espace de 1 case entre eux (plus difficile &agrave; trouver). En phase d'attaque, il explore les cases adjacentes d&egrave;s qu'il touche un bateau.
+              {t("docs.bots.smart.desc")}
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Placement</span>
-                <span className="block text-sm text-[#fbf0df]">Al&eacute;atoire espac&eacute;</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.placement")}</span>
+                <span className="block text-sm text-[#fbf0df]">{t("docs.bots.smart.placement")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Tir</span>
-                <span className="block text-sm text-[#fbf0df]">Al&eacute;atoire + chasse</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.shot")}</span>
+                <span className="block text-sm text-[#fbf0df]">{t("docs.bots.smart.shot")}</span>
               </div>
             </div>
             <Pre>{`export class SmartBot extends Brain {
@@ -262,25 +258,25 @@ export function Documentation() {
   think(): { x: number; y: number } {
     // 1. Cherche les State.Hit sur le plateau adverse
     // 2. Ajoute les cases adjacentes aux touches
-    // 3. Explore les hits en priorit&eacute;
-    // 4. Sinon, tire al&eacute;atoirement
+    // 3. Explore les hits en priorité
+    // 4. Sinon, tire aléatoirement
     ...
   }
 }`}</Pre>
           </DocCard>
 
-          <DocCard title="StrategicBot">
+          <DocCard title={t("docs.bots.strategic.title")}>
             <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
-              Un robot strat&eacute;gique qui utilise une recherche par grille avec un pas de 3 pour couvrir tout le plateau efficacement. Cette m&eacute;thode garantit qu'aucun bateau de taille 3+ ne peut lui &eacute;chapper.
+              {t("docs.bots.strategic.desc")}
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Placement</span>
-                <span className="block text-sm text-[#fbf0df]">Al&eacute;atoire</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.placement")}</span>
+                <span className="block text-sm text-[#fbf0df]">{t("docs.bots.strategic.placement")}</span>
               </div>
               <div className="p-3 rounded-xl bg-[#0d0d14] border border-[#fbf0df]/5">
-                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">Tir</span>
-                <span className="block text-sm text-[#fbf0df]">Grille pas-3 + chasse</span>
+                <span className="block text-xs font-bold text-[#fbf0df]/40 uppercase tracking-wider mb-1">{t("docs.shot")}</span>
+                <span className="block text-sm text-[#fbf0df]">{t("docs.bots.strategic.shot")}</span>
               </div>
             </div>
             <Pre>{`export class StrategicBot extends Brain {
@@ -298,7 +294,7 @@ export function Documentation() {
   think(): { x: number; y: number } {
     // 1. Phase de chasse : explore les cases adjacentes
     // 2. Phase de recherche : suit la grille pas-3
-    // 3. Fallback : al&eacute;atoire
+    // 3. Fallback : aléatoire
     ...
   }
 }`}</Pre>
@@ -307,7 +303,7 @@ export function Documentation() {
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6">
-            <span className="text-gradient">Exemple complet</span>
+            <span className="text-gradient">{t("docs.example.title")}</span>
           </h2>
           <div className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
             <div className="px-6 py-3 border-b border-[#fbf0df]/5 bg-[#0d0d14]">
