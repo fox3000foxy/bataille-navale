@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "./index.css";
 import logo from "./logo.svg";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
+import { I18nProvider, useI18n } from "./i18n/I18nContext";
 import { Developer } from "./pages/Developer";
 import { Terms } from "./pages/Terms";
 import { Privacy } from "./pages/Privacy";
@@ -68,10 +69,11 @@ function RevealSection({ children, className = "" }: { children: React.ReactNode
 
 function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) => void }) {
   const { user, loading, logout } = useAuth();
+  const { t, toggleLang } = useI18n();
   const links: { label: string; page: Page }[] = [
-    { label: "Développeur", page: "developer" },
-    { label: "CGU", page: "terms" },
-    { label: "Confidentialité", page: "privacy" },
+    { label: t("nav.developer"), page: "developer" },
+    { label: t("nav.terms"), page: "terms" },
+    { label: t("nav.privacy"), page: "privacy" },
   ];
 
   return (
@@ -94,18 +96,23 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
             {label}
           </button>
         ))}
+        <button type="button" onClick={toggleLang}
+          className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors bg-transparent border-0 cursor-pointer text-xs font-mono"
+        >
+          {t("nav.lang")}
+        </button>
         {loading ? null : user ? (
           <div className="flex items-center gap-4">
             <span className="text-[#fbf0df]/80">{user.username}</span>
             <button type="button" onClick={() => { logout().then(() => onNavigate("home")).catch(() => {}); }}
               className="text-[#fbf0df]/50 hover:text-[#fbf0df] bg-transparent border-0 cursor-pointer transition-colors"
             >
-              Déconnexion
+              {t("nav.logout")}
             </button>
             <button type="button" onClick={() => onNavigate("submit")}
               className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white font-semibold no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
             >
-              Soumettre un robot
+              {t("nav.submitRobot")}
             </button>
           </div>
         ) : (
@@ -113,12 +120,12 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
             <button type="button" onClick={() => onNavigate("login")}
               className="text-[#fbf0df]/70 hover:text-[#fbf0df] bg-transparent border-0 cursor-pointer transition-colors"
             >
-              Connexion
+              {t("nav.login")}
             </button>
             <button type="button" onClick={() => onNavigate("register")}
               className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
             >
-              S'inscrire
+              {t("nav.register")}
             </button>
           </div>
         )}
@@ -128,6 +135,7 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
 }
 
 function Hero({ onNavigate }: { onNavigate: (page: Page) => void }) {
+  const { t } = useI18n();
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen px-6 pt-24 text-center overflow-hidden">
       <div className="glow-orb top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
@@ -136,22 +144,22 @@ function Hero({ onNavigate }: { onNavigate: (page: Page) => void }) {
         NavalCode
       </h1>
       <p className="text-xl text-[#fbf0df]/60 max-w-2xl mb-10 leading-relaxed">
-        La plateforme où les développeurs confrontent leurs robots intelligents.
-        Codez votre stratégie, participez aux événements hebdomadaires,
-        et faites gagner votre bot.
+        {t("hero.subtitle1")}<br />
+        {t("hero.subtitle2")}<br />
+        {t("hero.subtitle3")}
       </p>
       <div className="flex items-center gap-4">
         <button type="button"
           onClick={() => onNavigate("developer")}
           className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold text-lg no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all hover:-translate-y-0.5 cursor-pointer border-0 btn-primary"
         >
-          Commencer à coder
+          {t("hero.startCoding")}
         </button>
         <button type="button"
           onClick={() => onNavigate("submit")}
           className="px-8 py-3 rounded-xl border border-[#fbf0df]/20 text-[#fbf0df] font-bold text-lg no-underline hover:border-[#00d4ff]/50 hover:text-[#00d4ff] transition-all cursor-pointer bg-transparent"
         >
-          Soumettre mon robot
+          {t("hero.submitRobot")}
         </button>
       </div>
     </section>
@@ -159,11 +167,12 @@ function Hero({ onNavigate }: { onNavigate: (page: Page) => void }) {
 }
 
 function Stats() {
+  const { t } = useI18n();
   const items = [
-    { value: "42+", label: "Bots soumis" },
-    { value: "128+", label: "Développeurs" },
-    { value: "16", label: "Compétitions" },
-    { value: "2500", label: "Prix distribués" },
+    { value: "42+", label: t("stats.bots") },
+    { value: "128+", label: t("stats.developers") },
+    { value: "16", label: t("stats.competitions") },
+    { value: "2500", label: t("stats.prizes") },
   ];
 
   return (
@@ -181,27 +190,28 @@ function Stats() {
 }
 
 function HowItWorks() {
+  const { t } = useI18n();
   const steps = [
     {
       num: "1",
-      title: "Codez votre robot",
-      desc: "Utilisez notre SDK pour construire votre IA en TypeScript. Implémentez les méthodes think() et turn() pour définir votre stratégie.",
+      title: t("howItWorks.step1.title"),
+      desc: t("howItWorks.step1.desc"),
     },
     {
       num: "2",
-      title: "Participez aux événements",
-      desc: "Un nouvel événement a lieu chaque weekend. Soumettez votre robot avant le vendredi minuit pour participer.",
+      title: t("howItWorks.step2.title"),
+      desc: t("howItWorks.step2.desc"),
     },
     {
       num: "3",
-      title: "Gagnez des prix",
-      desc: "Les meilleurs robots s'affrontent. Les développeurs gagnants et les parieurs se partagent la cagnotte.",
+      title: t("howItWorks.step3.title"),
+      desc: t("howItWorks.step3.desc"),
     },
   ];
 
   return (
     <section className="px-6 py-24 max-w-5xl mx-auto">
-      <h2 className="section-title"><span>Comment ça marche</span></h2>
+      <h2 className="section-title"><span>{t("howItWorks.title")}</span></h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {steps.map((step) => (
           <RevealSection key={step.num}>
@@ -220,18 +230,19 @@ function HowItWorks() {
 }
 
 function Features() {
+  const { t } = useI18n();
   const items = [
-    { icon: "🛡️", title: "Exécution sandboxée", desc: "Chaque robot tourne dans un environnement isolé. Aucun import externe, aucun accès système." },
-    { icon: "📦", title: "SDK TypeScript", desc: "Un SDK complet avec les classes Board, Strategy, Brain. Étendez Brain et implémentez votre stratégie." },
-    { icon: "🏆", title: "Compétitions hebdomadaires", desc: "Nouveaux événements chaque weekend. Soumettez votre robot avant le vendredi minuit UTC." },
-    { icon: "🤖", title: "Bots de référence", desc: "Trois robots de référence fournis : Random, SmartBot et StrategicBot." },
-    { icon: "💰", title: "Système de paris", desc: "Pariez sur vos robots favoris. 75% reversé aux parieurs, 20% au développeur gagnant." },
-    { icon: "📊", title: "Fair-play garanti", desc: "Validation automatique (tsc -b, biome check). Des règles claires pour tous." },
+    { icon: "🛡️", title: t("features.sandbox.title"), desc: t("features.sandbox.desc") },
+    { icon: "📦", title: t("features.sdk.title"), desc: t("features.sdk.desc") },
+    { icon: "🏆", title: t("features.competitions.title"), desc: t("features.competitions.desc") },
+    { icon: "🤖", title: t("features.bots.title"), desc: t("features.bots.desc") },
+    { icon: "💰", title: t("features.betting.title"), desc: t("features.betting.desc") },
+    { icon: "📊", title: t("features.fairplay.title"), desc: t("features.fairplay.desc") },
   ];
 
   return (
     <section className="px-6 py-24 max-w-6xl mx-auto">
-      <h2 className="section-title"><span>Pourquoi NavalCode ?</span></h2>
+      <h2 className="section-title"><span>{t("features.title")}</span></h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (
           <RevealSection key={item.title}>
@@ -248,30 +259,31 @@ function Features() {
 }
 
 function RevenueSplit() {
+  const { t } = useI18n();
   return (
     <section className="px-6 py-24 max-w-5xl mx-auto">
-      <h2 className="section-title"><span>Répartition des gains</span></h2>
+      <h2 className="section-title"><span>{t("revenue.title")}</span></h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <RevealSection>
           <div className="p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 text-center card-hover">
             <div className="text-5xl font-bold text-[#00d4ff] mb-2">75%</div>
-            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Parieurs</div>
-            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Réparti proportionnellement à la mise de chaque parieur sur le pot final.</p>
+            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">{t("revenue.bettors.label")}</div>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">{t("revenue.bettors.desc")}</p>
           </div>
         </RevealSection>
         <RevealSection>
           <div className="p-8 rounded-2xl bg-[#16161f] border-2 border-[#00d4ff]/20 text-center relative animate-[pulse-glow_3s_ease-in-out_infinite]">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white text-xs font-bold uppercase tracking-wider">Gagnant</div>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] text-white text-xs font-bold uppercase tracking-wider">{t("revenue.winner.label")}</div>
             <div className="text-5xl font-bold text-[#fbf0df] mb-2 mt-2">20%</div>
-            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Développeur du bot</div>
-            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Récompense pour le développeur du robot vainqueur.</p>
+            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">{t("revenue.winner.title")}</div>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">{t("revenue.winner.desc")}</p>
           </div>
         </RevealSection>
         <RevealSection>
           <div className="p-8 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 text-center card-hover">
             <div className="text-5xl font-bold text-[#00d4ff] mb-2">5%</div>
-            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">Maintenance</div>
-            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">Frais de fonctionnement et de maintenance de la plateforme.</p>
+            <div className="text-sm uppercase tracking-widest text-[#fbf0df]/30 mb-3">{t("revenue.maintenance.label")}</div>
+            <p className="text-[#fbf0df]/50 text-sm leading-relaxed">{t("revenue.maintenance.desc")}</p>
           </div>
         </RevealSection>
       </div>
@@ -281,19 +293,20 @@ function RevenueSplit() {
 
 function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useI18n();
 
   const items = [
-    { q: "Comment soumettre un robot ?", a: "Développez votre robot en étendant la classe Brain, validez-le avec tsc -b et biome check, puis soumettez votre fichier .ts via le formulaire de soumission avant le vendredi minuit UTC." },
-    { q: "Quels sont les prérequis techniques ?", a: "Un seul fichier .ts, sans imports externes. Le code doit passer tsc -b et biome check sans erreur." },
-    { q: "Comment fonctionnent les paris ?", a: "Pariez sur les robots participants avant le début de l'événement. 75% pour les parieurs, 20% pour le développeur gagnant, 5% pour la plateforme." },
-    { q: "Quand ont lieu les événements ?", a: "Les soumissions sont ouvertes du lundi au vendredi. Les événements se déroulent chaque weekend." },
-    { q: "Mon code est-il protégé ?", a: "Oui. Seuls les robots du top 3 peuvent être rendus publics après l'événement, sauf opposition de votre part." },
-    { q: "Puis-je soumettre plusieurs robots ?", a: "Oui, mais un seul robot par développeur est autorisé par événement." },
+    { q: t("faq.q1"), a: t("faq.a1") },
+    { q: t("faq.q2"), a: t("faq.a2") },
+    { q: t("faq.q3"), a: t("faq.a3") },
+    { q: t("faq.q4"), a: t("faq.a4") },
+    { q: t("faq.q5"), a: t("faq.a5") },
+    { q: t("faq.q6"), a: t("faq.a6") },
   ];
 
   return (
     <section className="px-6 py-24 max-w-3xl mx-auto">
-      <h2 className="section-title"><span>Questions fréquentes</span></h2>
+      <h2 className="section-title"><span>{t("faq.title")}</span></h2>
       <div className="space-y-3">
         {items.map((item, i) => (
           <div key={item.q} className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
@@ -315,23 +328,21 @@ function FAQ() {
 }
 
 function CTA({ onNavigate }: { onNavigate: (page: Page) => void }) {
+  const { t } = useI18n();
   return (
     <section className="px-6 py-24 text-center">
       <RevealSection>
         <div className="max-w-3xl mx-auto p-12 md:p-16 rounded-3xl bg-[#16161f] border border-[#fbf0df]/5 relative overflow-hidden">
           <div className="glow-orb -top-40 -right-40 opacity-70" />
-          <h2 className="text-3xl md:text-4xl font-bold text-[#fbf0df] mb-4 relative">Prêt pour le défi ?</h2>
-          <p className="text-[#fbf0df]/50 mb-10 max-w-xl mx-auto leading-relaxed relative">
-            Téléchargez le SDK, suivez les règles de validation et soumettez votre robot
-            pour le prochain événement hebdomadaire.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#fbf0df] mb-4 relative">{t("cta.title")}</h2>
+          <p className="text-[#fbf0df]/50 mb-10 max-w-xl mx-auto leading-relaxed relative">{t("cta.desc")}</p>
           <div className="flex items-center justify-center gap-4 relative">
             <button type="button" onClick={() => onNavigate("developer")}
               className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
-            >Documentation SDK</button>
+            >{t("cta.docs")}</button>
             <button type="button" onClick={() => onNavigate("submit")}
               className="px-8 py-3 rounded-xl border border-[#fbf0df]/20 text-[#fbf0df] font-bold no-underline hover:border-[#00d4ff]/50 hover:text-[#00d4ff] transition-all cursor-pointer bg-transparent"
-            >Soumettre</button>
+            >{t("cta.submit")}</button>
           </div>
         </div>
       </RevealSection>
@@ -340,6 +351,7 @@ function CTA({ onNavigate }: { onNavigate: (page: Page) => void }) {
 }
 
 function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
+  const { t } = useI18n();
   return (
     <footer className="px-8 py-16 border-t border-[#fbf0df]/5">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -348,24 +360,24 @@ function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
             <img src={logo} alt="" className="h-6" />
             NavalCode
           </div>
-          <p className="text-[#fbf0df]/40 text-sm leading-relaxed">Plateforme de compétition de robots IA. Codez, competez, gagnez.</p>
+          <p className="text-[#fbf0df]/40 text-sm leading-relaxed">{t("footer.tagline")}</p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">Plateforme</h4>
+          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">{t("nav.platform")}</h4>
           <div className="flex flex-col gap-2 text-sm">
-            <button type="button" onClick={() => onNavigate("developer")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Développeur</button>
-            <button type="button" onClick={() => onNavigate("submit")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Soumettre</button>
+            <button type="button" onClick={() => onNavigate("developer")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.developer")}</button>
+            <button type="button" onClick={() => onNavigate("submit")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.submit")}</button>
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">Juridique</h4>
+          <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">{t("nav.legal")}</h4>
           <div className="flex flex-col gap-2 text-sm">
-            <button type="button" onClick={() => onNavigate("terms")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">CGU</button>
-            <button type="button" onClick={() => onNavigate("privacy")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">Confidentialité</button>
+            <button type="button" onClick={() => onNavigate("terms")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.terms")}</button>
+            <button type="button" onClick={() => onNavigate("privacy")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.privacy")}</button>
           </div>
         </div>
       </div>
-      <div className="text-center text-sm text-[#fbf0df]/30 pt-8 border-t border-[#fbf0df]/5">NavalCode -- Compétition de robots IA</div>
+      <div className="text-center text-sm text-[#fbf0df]/30 pt-8 border-t border-[#fbf0df]/5">{t("footer.taglineShort")}</div>
     </footer>
   );
 }
@@ -373,6 +385,7 @@ function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
 function AppContent() {
   const [page, setPage] = useState<Page>(() => pathToPage(window.location.pathname));
   const { loading } = useAuth();
+  const { t } = useI18n();
 
   useEffect(() => {
     const onPop = () => setPage(pathToPage(window.location.pathname));
@@ -388,7 +401,7 @@ function AppContent() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-[#fbf0df]/40">Chargement...</div>
+        <div className="text-[#fbf0df]/40">{t("loading")}</div>
       </div>
     );
   }
@@ -428,9 +441,11 @@ function AppContent() {
 
 export function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <I18nProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </I18nProvider>
   );
 }
 
