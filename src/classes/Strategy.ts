@@ -1,16 +1,19 @@
 import { Boats } from "../types/Boats";
 import { State } from "../types/State";
 
+/** Direction in which a boat extends from its starting coordinate. */
+export type Direction = "left" | "right" | "up" | "down";
+
 /** Describes the placement of a single boat on the board. */
 export interface BoatPlacement {
   /** The type of boat placed. */
   boat: Boats;
-  /** The x coordinate (column) of the top left cell of the boat. */
+  /** The x coordinate (column) of the starting cell of the boat. */
   x: number;
-  /** The y coordinate (row) of the top left cell of the boat. */
+  /** The y coordinate (row) of the starting cell of the boat. */
   y: number;
-  /** Whether the boat is placed horizontally (true) or vertically (false). */
-  horizontal: boolean;
+  /** The direction in which the boat extends from the starting cell. */
+  direction: Direction;
 }
 
 /** Defines a placement strategy for all boats on a board. Provides methods to check hits and detect sunken ships. */
@@ -26,12 +29,12 @@ export class Strategy {
   /**
    * Adds a boat placement to the strategy.
    * @param boat The type of boat to place.
-   * @param x The x coordinate (column) of the top left cell.
-   * @param y The y coordinate (row) of the top left cell.
-   * @param horizontal Whether the boat is placed horizontally.
+   * @param x The x coordinate (column) of the starting cell.
+   * @param y The y coordinate (row) of the starting cell.
+   * @param direction The direction in which the boat extends.
    */
-  addBoat(boat: Boats, x: number, y: number, horizontal: boolean): void {
-    this.placements.push({ boat, x, y, horizontal });
+  addBoat(boat: Boats, x: number, y: number, direction: Direction): void {
+    this.placements.push({ boat, x, y, direction });
   }
 
   /**
@@ -42,11 +45,20 @@ export class Strategy {
   getCells(placement: BoatPlacement): { x: number; y: number }[] {
     const cells: { x: number; y: number }[] = [];
     for (let i = 0; i < placement.boat; i++) {
-      cells.push(
-        placement.horizontal
-          ? { x: placement.x + i, y: placement.y }
-          : { x: placement.x, y: placement.y + i },
-      );
+      switch (placement.direction) {
+        case "right":
+          cells.push({ x: placement.x + i, y: placement.y });
+          break;
+        case "left":
+          cells.push({ x: placement.x - i, y: placement.y });
+          break;
+        case "down":
+          cells.push({ x: placement.x, y: placement.y + i });
+          break;
+        case "up":
+          cells.push({ x: placement.x, y: placement.y - i });
+          break;
+      }
     }
     return cells;
   }
