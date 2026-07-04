@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS bots (
   user_id INTEGER NOT NULL,
   name TEXT NOT NULL,
   code TEXT NOT NULL,
+  status TEXT DEFAULT 'dev',
   is_active INTEGER DEFAULT 1,
   wins INTEGER DEFAULT 0,
   losses INTEGER DEFAULT 0,
@@ -83,9 +84,19 @@ CREATE TABLE IF NOT EXISTS sessions (
   FOREIGN KEY (user_id) REFERENCES users(id)
 )`;
 
+const CREATE_DEVICE_CODES = `
+CREATE TABLE IF NOT EXISTS device_codes (
+  code TEXT PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  expires_at TEXT NOT NULL,
+  confirmed_at TEXT,
+  created_at TEXT DEFAULT (datetime('now'))
+)`;
+
 export const SCHEMA = [
   CREATE_USERS,
   CREATE_SESSIONS,
+  CREATE_DEVICE_CODES,
   CREATE_BOTS,
   CREATE_EVENTS,
   CREATE_EVENT_BOTS,

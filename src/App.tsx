@@ -10,10 +10,13 @@ import { Submit } from "./pages/Submit";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Documentation } from "./pages/Documentation";
+import { Profile } from "./pages/Profile";
+import { Device } from "./pages/Device";
 
-type Page = "home" | "developer" | "terms" | "privacy" | "submit" | "login" | "register" | "documentation";
+type Page = "home" | "developer" | "terms" | "privacy" | "submit" | "login" | "register" | "documentation" | "profile" | "notfound" | "device";
 
 function pathToPage(path: string): Page {
+  if (path === "/") { return "home"; }
   switch (path) {
     case "/developer": return "developer";
     case "/terms": return "terms";
@@ -22,7 +25,9 @@ function pathToPage(path: string): Page {
     case "/login": return "login";
     case "/register": return "register";
     case "/documentation": return "documentation";
-    default: return "home";
+    case "/profile": return "profile";
+    case "/device": return "device";
+    default: return "notfound";
   }
 }
 
@@ -35,6 +40,8 @@ function pageToPath(page: Page): string {
     case "login": return "/login";
     case "register": return "/register";
     case "documentation": return "/documentation";
+    case "profile": return "/profile";
+    case "device": return "/device";
     default: return "/";
   }
 }
@@ -107,7 +114,9 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
         </button>
         {loading ? null : user ? (
           <div className="flex items-center gap-4">
-            <span className="text-[#fbf0df]/80">{user.username}</span>
+            <button type="button" onClick={() => onNavigate("profile")}
+              className="text-[#fbf0df]/80 hover:text-[#00d4ff] transition-colors bg-transparent border-0 cursor-pointer"
+            >{user.username}</button>
             <button type="button" onClick={() => { logout().then(() => onNavigate("home")).catch(() => {}); }}
               className="text-[#fbf0df]/50 hover:text-[#fbf0df] bg-transparent border-0 cursor-pointer transition-colors"
             >
@@ -374,6 +383,21 @@ function FAQ() {
   );
 }
 
+function NotFound({ onNavigate }: { onNavigate: (page: Page) => void }) {
+  const { t } = useI18n();
+  return (
+    <div className="min-h-screen pt-24 px-6 flex flex-col items-center justify-center text-center">
+      <div className="text-8xl font-bold text-gradient mb-4">404</div>
+      <p className="text-xl text-[#fbf0df]/60 mb-8">{t("notfound.desc")}</p>
+      <button type="button" onClick={() => onNavigate("home")}
+        className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-bold no-underline hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-all cursor-pointer border-0 btn-primary"
+      >
+        {t("notfound.home")}
+      </button>
+    </div>
+  );
+}
+
 function CTA({ onNavigate }: { onNavigate: (page: Page) => void }) {
   const { t } = useI18n();
   return (
@@ -463,6 +487,9 @@ function AppContent() {
       case "login": return <Login onNavigate={handleNavigate} />;
       case "register": return <Register onNavigate={handleNavigate} />;
       case "documentation": return <Documentation />;
+      case "profile": return <Profile />;
+      case "notfound": return <NotFound onNavigate={handleNavigate} />;
+      case "device": return <Device />;
       default:
         return (
           <>

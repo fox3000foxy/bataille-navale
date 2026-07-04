@@ -28,13 +28,13 @@ export function deleteSession(token: string): void {
   db.run("DELETE FROM sessions WHERE id = ?", [token]);
 }
 
-export function getUserFromToken(token: string): { id: number; email: string; username: string } | null {
+export function getUserFromToken(token: string): { id: number; email: string; username: string; display_name: string; bio: string } | null {
   const userId = getUserIdFromToken(token);
   if (!userId) { return null; }
   const db = getDB();
   const user = db.query(
-    "SELECT id, email, username FROM users WHERE id = ?",
-  ).get(userId) as { id: number; email: string; username: string } | undefined;
+    "SELECT id, email, username, display_name, bio FROM users WHERE id = ?",
+  ).get(userId) as { id: number; email: string; username: string; display_name: string; bio: string } | undefined;
   return user ?? null;
 }
 
