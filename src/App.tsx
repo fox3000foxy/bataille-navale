@@ -9,8 +9,9 @@ import { Privacy } from "./pages/Privacy";
 import { Submit } from "./pages/Submit";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { Documentation } from "./pages/Documentation";
 
-type Page = "home" | "developer" | "terms" | "privacy" | "submit" | "login" | "register";
+type Page = "home" | "developer" | "terms" | "privacy" | "submit" | "login" | "register" | "documentation";
 
 function pathToPage(path: string): Page {
   switch (path) {
@@ -20,6 +21,7 @@ function pathToPage(path: string): Page {
     case "/submit": return "submit";
     case "/login": return "login";
     case "/register": return "register";
+    case "/documentation": return "documentation";
     default: return "home";
   }
 }
@@ -32,6 +34,7 @@ function pageToPath(page: Page): string {
     case "submit": return "/submit";
     case "login": return "/login";
     case "register": return "/register";
+    case "documentation": return "/documentation";
     default: return "/";
   }
 }
@@ -72,6 +75,7 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
   const { t, toggleLang } = useI18n();
   const links: { label: string; page: Page }[] = [
     { label: t("nav.developer"), page: "developer" },
+    { label: t("nav.documentation"), page: "documentation" },
     { label: t("nav.terms"), page: "terms" },
     { label: t("nav.privacy"), page: "privacy" },
   ];
@@ -409,6 +413,7 @@ function Footer({ onNavigate }: { onNavigate: (page: Page) => void }) {
           <h4 className="text-sm font-semibold text-[#fbf0df] mb-3 uppercase tracking-wider">{t("nav.platform")}</h4>
           <div className="flex flex-col gap-2 text-sm">
             <button type="button" onClick={() => onNavigate("developer")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.developer")}</button>
+            <button type="button" onClick={() => onNavigate("documentation")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.documentation")}</button>
             <button type="button" onClick={() => onNavigate("submit")} className="text-[#fbf0df]/40 hover:text-[#00d4ff] transition-colors text-left bg-transparent border-0 cursor-pointer">{t("nav.submit")}</button>
           </div>
         </div>
@@ -457,6 +462,7 @@ function AppContent() {
       case "submit": return <Submit />;
       case "login": return <Login onNavigate={handleNavigate} />;
       case "register": return <Register onNavigate={handleNavigate} />;
+      case "documentation": return <Documentation />;
       default:
         return (
           <>
