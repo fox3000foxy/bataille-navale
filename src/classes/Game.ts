@@ -32,6 +32,8 @@ export class Game {
     this.strategy2 = new Strategy();
     this.brain1 = brain1;
     this.brain2 = brain2;
+    this.brain1.setAdversaryBoard(this.board2);
+    this.brain2.setAdversaryBoard(this.board1);
     this.activePlayer = 1;
   }
 

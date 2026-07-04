@@ -1,9 +1,28 @@
 import { Board } from "./Board";
 import { Boats } from "../types/Boats";
-import { type Direction, Strategy } from "./Strategy";
+import type { Direction } from "./Strategy";
+import { Strategy } from "./Strategy";
 
 /** Abstract base class for implementing a player's decision making logic. */
 export abstract class Brain {
+  private adversaryBoardRef: Board = new Board();
+
+  /**
+   * Sets the adversary board reference so the brain can observe shot results.
+   * @param board The adversary board to track.
+   */
+  setAdversaryBoard(board: Board): void {
+    this.adversaryBoardRef = board;
+  }
+
+  /**
+   * Returns the brain's current knowledge of the adversary's board.
+   * @returns The adversary board as known by this brain.
+   */
+  getAdversaryBoard(): Board {
+    return this.adversaryBoardRef;
+  }
+
   /**
    * Decides the next coordinate to attack.
    * @returns An object with the x and y coordinates of the chosen target.
@@ -16,12 +35,6 @@ export abstract class Brain {
    * @param y The y coordinate attacked by the opponent.
    */
   abstract turn(x: number, y: number): void;
-
-  /**
-   * Returns the brain's current knowledge of the adversary's board.
-   * @returns The adversary board as known by this brain.
-   */
-  abstract getAdversaryBoard(): Board;
 
   /**
    * Creates a strategy by placing all boats from the given definitions.
