@@ -17,4 +17,5 @@ const APP = (
 );
 
 // https://bun.com/docs/bundler/hot-reloading#import-meta-hot-data
-(import.meta.hot.data.root ??= createRoot(ELEM)).render(APP);
+import.meta.hot.data.root ??= createRoot(ELEM);
+import.meta.hot.data.root.render(APP);

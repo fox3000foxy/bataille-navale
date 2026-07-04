@@ -58,6 +58,8 @@ export class Strategy {
 				case "up":
 					cells.push({ x: placement.x, y: placement.y - i });
 					break;
+				default:
+					break;
 			}
 		}
 		return cells;

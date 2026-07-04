@@ -16,20 +16,18 @@ export class StrategicBot extends Brain {
 	private searchQueue: { x: number; y: number }[];
 	private hitsToExplore: { x: number; y: number }[];
   private exploredHits: Set<string>;
-  private totalHitsFound: number;
 
   /** Initializes the bot with empty boards, generates a random placement, and builds the search pattern. */
-	constructor() {
-		super();
-		this.name = "StrategicBot";
-		this.myBoard = new Board();
-		this.myStrategy = new Strategy();
-		this.targetedCells = new Set();
-		this.searchQueue = [];
-		this.hitsToExplore = [];
-		this.exploredHits = new Set();
-		this.totalHitsFound = 0;
-		this.myStrategy = this.generateStrategy();
+  constructor() {
+    super();
+    this.name = "StrategicBot";
+    this.myBoard = new Board();
+    this.myStrategy = new Strategy();
+    this.targetedCells = new Set();
+    this.searchQueue = [];
+    this.hitsToExplore = [];
+    this.exploredHits = new Set();
+    this.myStrategy = this.generateStrategy();
 		this.buildSearchPattern();
 	}
 
@@ -128,6 +126,8 @@ export class StrategicBot extends Brain {
 				case "up":
 					cells.push({ x, y: y - i });
 					break;
+				default:
+					break;
 			}
 		}
 		return cells;
@@ -149,7 +149,6 @@ export class StrategicBot extends Brain {
 					!this.exploredHits.has(`${x},${y}`)
 				) {
 					this.exploredHits.add(`${x},${y}`);
-					this.totalHitsFound++;
 					this.addAdjacentCells(x, y);
 				}
 			}

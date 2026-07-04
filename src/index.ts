@@ -7,13 +7,13 @@ const SERVER = serve({
 		"/*": index,
 
 		"/api/hello": {
-			async GET(_req) {
+			GET(_req) {
 				return Response.json({
 					message: "Hello, world!",
 					method: "GET",
 				});
 			},
-			async PUT(_req) {
+			PUT(_req) {
 				return Response.json({
 					message: "Hello, world!",
 					method: "PUT",
@@ -21,7 +21,7 @@ const SERVER = serve({
 			},
 		},
 
-		"/api/hello/:name": async (req) => {
+		"/api/hello/:name": (req) => {
 			const name = req.params.name;
 			return Response.json({
 				message: `Hello, ${name}!`,

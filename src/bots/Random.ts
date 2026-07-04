@@ -97,6 +97,8 @@ export class Random extends Brain {
 				case "up":
 					cells.push({ x, y: y - i });
 					break;
+				default:
+					break;
 			}
 		}
 		return cells;
