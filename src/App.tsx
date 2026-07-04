@@ -8,10 +8,11 @@ import { Privacy } from "./pages/Privacy";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Documentation } from "./pages/Documentation";
+import { Events } from "./pages/Events";
 import { Profile } from "./pages/Profile";
 import { Device } from "./pages/Device";
 
-type Page = "home" | "terms" | "privacy" | "login" | "register" | "documentation" | "profile" | "notfound" | "device";
+type Page = "home" | "terms" | "privacy" | "login" | "register" | "documentation" | "events" | "profile" | "notfound" | "device";
 
 function pathToPage(path: string): Page {
   if (path === "/") { return "home"; }
@@ -21,6 +22,7 @@ function pathToPage(path: string): Page {
     case "/login": return "login";
     case "/register": return "register";
     case "/documentation": return "documentation";
+    case "/events": return "events";
     case "/profile": return "profile";
     case "/device": return "device";
     default: return "notfound";
@@ -34,6 +36,7 @@ function pageToPath(page: Page): string {
     case "login": return "/login";
     case "register": return "/register";
     case "documentation": return "/documentation";
+    case "events": return "/events";
     case "profile": return "/profile";
     case "device": return "/device";
     default: return "/";
@@ -75,6 +78,7 @@ function Nav({ current, onNavigate }: { current: Page; onNavigate: (page: Page) 
   const { user, loading, logout } = useAuth();
   const { t, toggleLang } = useI18n();
   const links: { label: string; page: Page }[] = [
+    { label: t("nav.events"), page: "events" },
     { label: t("nav.documentation"), page: "documentation" },
     { label: t("nav.terms"), page: "terms" },
     { label: t("nav.privacy"), page: "privacy" },
@@ -478,6 +482,7 @@ function AppContent() {
       case "login": return <Login onNavigate={handleNavigate} />;
       case "register": return <Register onNavigate={handleNavigate} />;
       case "documentation": return <Documentation />;
+      case "events": return <Events />;
       case "profile": return <Profile />;
       case "notfound": return <NotFound onNavigate={handleNavigate} />;
       case "device": return <Device />;
