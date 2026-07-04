@@ -11,7 +11,7 @@ function PrivacySection({ section, t }: { section: string; t: (key: string) => s
   for (let i = 0; ; i++) {
     const k = `privacy.sections.${section}.items.${i}`;
     const val = t(k);
-    if (val === k) { break; }
+    if (val === `[${k}]`) { break; }
     items.push({ key: k, val });
   }
 

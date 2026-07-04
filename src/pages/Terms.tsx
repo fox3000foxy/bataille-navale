@@ -11,7 +11,7 @@ function TermsSection({ section, t }: { section: string; t: (key: string) => str
   for (let i = 0; ; i++) {
     const k = `terms.sections.${section}.items.${i}`;
     const val = t(k);
-    if (val === k) { break; }
+    if (val === `[${k}]`) { break; }
     items.push({ key: k, val });
   }
 

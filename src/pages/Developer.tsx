@@ -1,7 +1,7 @@
 import { useI18n } from "../i18n/I18nContext";
 import logo from "../logo.svg";
 
-function Step({ num, title, desc }: { num: string; title: string; desc: string }) {
+function _Step({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
     <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
       <span className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#00d4ff]/20 to-[#7c3aed]/20 border border-[#00d4ff]/20 text-sm font-bold text-[#00d4ff] mb-3">
@@ -155,7 +155,7 @@ export class MyBot extends Brain {
           </div>
         </section>
 
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.bots.title")}</span></h2>
           <p className="text-[#fbf0df]/50 leading-relaxed mb-6">
             {t("developer.bots.desc")}
@@ -165,7 +165,18 @@ export class MyBot extends Brain {
             <Step num="SmartBot" title={t("developer.bots.smart")} desc={t("developer.bots.smart.desc")} />
             <Step num="StrategicBot" title={t("developer.bots.strategic")} desc={t("developer.bots.strategic.desc")} />
           </div>
-        </section>
+          <div className="flex flex-wrap gap-3 mt-4">
+            <a href="/api/bots/Random.ts" download className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold text-xs no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all btn-primary">
+              Telecharger Random.ts
+            </a>
+            <a href="/api/bots/SmartBot.ts" download className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold text-xs no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all btn-primary">
+              Telecharger SmartBot.ts
+            </a>
+            <a href="/api/bots/StrategicBot.ts" download className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00d4ff] to-[#0099cc] text-white font-semibold text-xs no-underline hover:shadow-[0_0_25px_rgba(0,212,255,0.3)] transition-all btn-primary">
+              Telecharger StrategicBot.ts
+            </a>
+          </div>
+        </section> */}
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">{t("developer.rules.title")}</span></h2>
