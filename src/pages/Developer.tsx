@@ -12,6 +12,14 @@ function Step({ num, title, desc }: { num: string; title: string; desc: string }
   );
 }
 
+function Pre({ children }: { children: string }) {
+  return (
+    <pre className="text-sm text-[#fbf0df]/70 font-mono leading-relaxed overflow-x-auto bg-[#0d0d14] p-4 rounded-xl border-l-2 border-[#00d4ff]/30">
+      {children}
+    </pre>
+  );
+}
+
 export function Developer() {
   return (
     <div className="min-h-screen pt-24 px-6">
@@ -28,10 +36,12 @@ export function Developer() {
             Votre robot doit étendre la classe abstraite <code className="text-[#00d4ff] bg-[#16161f] px-2 py-0.5 rounded font-mono text-sm border border-[#00d4ff]/20">Brain</code> et implémenter ses méthodes.
           </p>
 
-          <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 mb-6">
-            <h3 className="text-lg font-bold text-[#fbf0df] mb-3">Classe Brain</h3>
-            <pre className="text-sm text-[#fbf0df]/70 font-mono leading-relaxed overflow-x-auto">
-{`import { Brain } from "@navalcode/sdk";
+          <div className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
+            <div className="px-6 py-3 border-b border-[#fbf0df]/5 bg-[#0d0d14]">
+              <span className="text-sm font-bold text-[#fbf0df]/30 font-mono">brain.ts</span>
+            </div>
+            <div className="p-6">
+              <Pre>{`import { Brain } from "@navalcode/sdk";
 import { Board } from "@navalcode/sdk";
 import { Strategy } from "@navalcode/sdk";
 import { Boats, State } from "@navalcode/sdk";
@@ -46,71 +56,83 @@ export class MyBot extends Brain {
 
   getStrategy(): Strategy {
   }
-}`}
-            </pre>
+}`}</Pre>
+            </div>
           </div>
         </section>
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Méthodes à implémenter</span></h2>
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">think()</h3>
-              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-3">
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
                 Appelée à chaque tour. Doit retourner les coordonnées {'{ x, y }'} de la case à attaquer.
               </p>
-              <pre className="text-sm text-[#00d4ff]/80 font-mono">think(): {'{ x: number; y: number }'}</pre>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                think(): {"{ x: number; y: number }"}
+              </code>
             </div>
 
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">turn(x, y)</h3>
-              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-3">
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
                 Notifie votre robot que l'adversaire a tiré sur la case (x, y). À vous de déterminer si c'est un tir raté ou réussi.
               </p>
-              <pre className="text-sm text-[#00d4ff]/80 font-mono">turn(x: number, y: number): void</pre>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                turn(x: number, y: number): void
+              </code>
             </div>
 
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">getStrategy()</h3>
-              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-3">
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
                 Retourne la stratégie de placement de vos bateaux. Appelée une fois au début de chaque partie.
               </p>
-              <pre className="text-sm text-[#00d4ff]/80 font-mono">getStrategy(): Strategy</pre>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                getStrategy(): Strategy
+              </code>
             </div>
 
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover">
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">getAdversaryBoard()</h3>
-              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-3">
+              <p className="text-[#fbf0df]/50 text-sm leading-relaxed mb-4">
                 Retourne le plateau adverse tel que connu par votre robot. Utile pour les stratégies avancées.
               </p>
-              <pre className="text-sm text-[#00d4ff]/80 font-mono">getAdversaryBoard(): Board</pre>
+              <code className="text-xs text-[#00d4ff] bg-[#0d0d14] px-2 py-1 rounded font-mono border border-[#00d4ff]/20">
+                getAdversaryBoard(): Board
+              </code>
             </div>
           </div>
         </section>
 
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Types et enums</span></h2>
-          <div className="space-y-4">
-            <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5">
-              <h3 className="text-lg font-bold text-[#fbf0df] mb-2">State</h3>
-              <pre className="text-sm text-[#fbf0df]/70 font-mono">
-{`enum State {
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
+              <div className="px-6 py-3 border-b border-[#fbf0df]/5">
+                <h3 className="text-lg font-bold text-[#fbf0df]">State</h3>
+              </div>
+              <div className="p-6">
+                <Pre>{`enum State {
   None = "None",
   Hit = "Hit",
   Sunk = "Sunk",
-}`}
-              </pre>
+}`}</Pre>
+              </div>
             </div>
-            <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5">
-              <h3 className="text-lg font-bold text-[#fbf0df] mb-2">Boats</h3>
-              <pre className="text-sm text-[#fbf0df]/70 font-mono">
-{`enum Boats {
+            <div className="rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 overflow-hidden">
+              <div className="px-6 py-3 border-b border-[#fbf0df]/5">
+                <h3 className="text-lg font-bold text-[#fbf0df]">Boats</h3>
+              </div>
+              <div className="p-6">
+                <Pre>{`enum Boats {
   AircraftCarrier = 5,
   Cruiser = 4,
   TorpedoBoat = 3,
   Submarine = 2,
-}`}
-              </pre>
+}`}</Pre>
+              </div>
             </div>
           </div>
         </section>
@@ -130,7 +152,7 @@ export class MyBot extends Brain {
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-[#fbf0df] mb-6"><span className="text-gradient">Règles de soumission</span></h2>
           <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5">
-            <ul className="text-[#fbf0df]/50 text-sm leading-relaxed space-y-3 list-disc list-inside">
+            <ul className="text-[#fbf0df]/50 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-[#00d4ff]">
               <li>Aucun import de modules externes autorisé (protection contre les virus)</li>
               <li>Le code doit passer <code className="text-[#00d4ff] bg-[#0d0d14] px-2 py-0.5 rounded font-mono border border-[#00d4ff]/20">tsc -b</code> sans erreur</li>
               <li>Le code doit passer <code className="text-[#00d4ff] bg-[#0d0d14] px-2 py-0.5 rounded font-mono border border-[#00d4ff]/20">biome check</code> sans erreur</li>

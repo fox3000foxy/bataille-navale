@@ -229,15 +229,58 @@ function HowItWorks() {
   );
 }
 
+function IconSandbox() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6 text-[#00d4ff]" role="img" aria-label="shiel">
+      <path d="M12 3L3 7.5v9L12 21l9-4.5v-9L12 3z"/><path d="M12 12l-4.5-2.25M12 12v6M12 12l4.5-2.25"/><path d="M7.5 9.75L12 12l4.5-2.25"/>
+    </svg>
+  );
+}
+function IconSDK() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6 text-[#00d4ff]" role="img" aria-label="code">
+      <path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/><path d="M14 4l-4 16"/>
+    </svg>
+  );
+}
+function IconTrophy() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6 text-[#00d4ff]" role="img" aria-label="trophy">
+      <path d="M6 4h12v4a6 6 0 01-12 0V4z"/><path d="M8 16h8v4H8z"/><path d="M12 14v2"/><path d="M4 8a2 2 0 012-2M20 8a2 2 0 00-2-2"/>
+    </svg>
+  );
+}
+function IconBot() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6 text-[#00d4ff]" role="img" aria-label="robot">
+      <rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 10h.01M15 10h.01"/><path d="M12 14c1.5 0 3-1 3-2H9c0 1 1.5 2 3 2z"/><path d="M8 4l2 2M16 4l-2 2"/>
+    </svg>
+  );
+}
+function IconBetting() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6 text-[#00d4ff]" role="img" aria-label="coin">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10l3-3 3 3"/>
+    </svg>
+  );
+}
+function IconFairplay() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6 text-[#00d4ff]" role="img" aria-label="check">
+      <path d="M9 12l2 2 4-4"/><path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/>
+    </svg>
+  );
+}
+
 function Features() {
   const { t } = useI18n();
   const items = [
-    { icon: "🛡️", title: t("features.sandbox.title"), desc: t("features.sandbox.desc") },
-    { icon: "📦", title: t("features.sdk.title"), desc: t("features.sdk.desc") },
-    { icon: "🏆", title: t("features.competitions.title"), desc: t("features.competitions.desc") },
-    { icon: "🤖", title: t("features.bots.title"), desc: t("features.bots.desc") },
-    { icon: "💰", title: t("features.betting.title"), desc: t("features.betting.desc") },
-    { icon: "📊", title: t("features.fairplay.title"), desc: t("features.fairplay.desc") },
+    { icon: <IconSandbox />, title: t("features.sandbox.title"), desc: t("features.sandbox.desc") },
+    { icon: <IconSDK />, title: t("features.sdk.title"), desc: t("features.sdk.desc") },
+    { icon: <IconTrophy />, title: t("features.competitions.title"), desc: t("features.competitions.desc") },
+    { icon: <IconBot />, title: t("features.bots.title"), desc: t("features.bots.desc") },
+    { icon: <IconBetting />, title: t("features.betting.title"), desc: t("features.betting.desc") },
+    { icon: <IconFairplay />, title: t("features.fairplay.title"), desc: t("features.fairplay.desc") },
   ];
 
   return (
@@ -247,7 +290,7 @@ function Features() {
         {items.map((item) => (
           <RevealSection key={item.title}>
             <div className="p-6 rounded-2xl bg-[#16161f] border border-[#fbf0df]/5 card-hover h-full">
-              <span className="text-2xl block mb-3">{item.icon}</span>
+              <div className="mb-3">{item.icon}</div>
               <h3 className="text-lg font-bold text-[#fbf0df] mb-2">{item.title}</h3>
               <p className="text-[#fbf0df]/50 text-sm leading-relaxed">{item.desc}</p>
             </div>
